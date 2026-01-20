@@ -1,0 +1,7 @@
+{
+  "name": "ORASI Lab SIMULADOR NEGOCIACION ONMC",
+  "description": "Plataforma de gestión estratégica de conflictos socio-comunitarios en minería. Metodología MGA y WCNO.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

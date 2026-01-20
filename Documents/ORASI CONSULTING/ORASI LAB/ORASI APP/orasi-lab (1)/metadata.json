@@ -1,0 +1,8 @@
+{
+  "name": "ORASI Lab",
+  "description": "Unified Content Suite with AI-powered features",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
