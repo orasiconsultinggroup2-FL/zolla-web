@@ -1,0 +1,6 @@
+{
+    "name": "zolla-web",
+    "framework": "nextjs",
+    "buildCommand": "next build",
+    "installCommand": "npm install"
+}
