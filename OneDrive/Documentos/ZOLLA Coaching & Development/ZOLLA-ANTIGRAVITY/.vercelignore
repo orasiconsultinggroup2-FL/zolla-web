@@ -1,0 +1,7 @@
+*.docx
+*.txt
+*.pdf
+.git
+.gitignore
+node_modules
+zolla-orasilab-exec.planner.html

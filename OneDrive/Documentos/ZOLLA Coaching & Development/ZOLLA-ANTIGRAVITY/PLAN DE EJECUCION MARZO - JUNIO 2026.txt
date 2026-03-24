@@ -1,0 +1,691 @@
+Perfecto, ya tienes un muy buen “esqueleto” estratégico. Te lo bajo ahora a plan de ejecución paso a paso, mes por mes (Mar–Jun), y luego te hago una evaluación clara de la incorporación de soporte administrativo/comercial: cuándo, cómo, con qué tareas y qué riesgos si no lo haces.
+
+MARZO — ORDEN Y ACTIVACIÓN DE BASE
+Objetivo del mes: Tener la casa en orden: cartera depurada, oferta clara, sistema armado y materiales listos.
+1. Depurar cartera histórica y segmentar (A/B/C + Top 20/Top 50)
+Semana 1–2
+1.Reunir toda la información de clientes/prospectos (20 años):
+?Correos (inbox + enviados, etiquetas).
+?CRM anterior (si lo hubo).
+?Excel/Sheets sueltos.
+?Agenda telefónica / WhatsApp / tarjetas / LinkedIn.
+2.Volcar todo a un único archivo maestro (Sheet):
+Columnas mínimas:
+?Nombre empresa
+?Persona de contacto / cargo
+?Email / teléfono / LinkedIn
+?Último contacto (año aproximado si no tienes fecha exacta)
+?Tipo de relación (cliente / prospecto / partner / referido)
+?Servicios que contrataron (si aplica)
+?Potencial estimado (bajo/medio/alto)
+3.Definir criterios de segmentación A/B/C: por ejemplo:
+?A: Decisores, ticket potencial medio-alto, relación previa buena.
+?B: Potencial medio, relación más fría.
+?C: Poco potencial o relación muy lejana.
+4.Clasificar A/B/C (rápido, sin perfeccionismo):
+?Haz una pasada rápida; luego podrás ajustar.
+5.Elegir Top 20 y Top 50:
+?Top 20: los de mayor probabilidad + potencial + afinidad.
+?Top 50: Top 20 + 30 adicionales de buen potencial.
+Resultado de marzo en este punto: 1 hoja maestra + lista clara Top 20 / Top 50.
+
+2. Definir mensaje de reingreso 2026 + guiones de contacto
+Semana 2
+1.Mensaje marco 2026 (para todos los canales):
+?3–4 ideas clave:
+?“Reapertura / relanzamiento” de Zolla.
+?Foco en liderazgo, vocería, desarrollo ejecutivo (ajustar a tu oferta real).
+?Qué problema puntual hoy estás resolviendo (post-pandemia, equipos híbridos, etc.).
+?Llamado a la acción: ofrecer un diagnóstico / sesión ejecutiva / piloto.
+2.Redactar 3 guiones adaptados:
+?Correo / LinkedIn (mensaje escrito)
+Estructura:
+?1: Referencia personal (“trabajamos juntos en… / nos conocimos en…”).
+?2: Actualización breve de Zolla hoy.
+?3: Dolor actual del mercado (1–2 bullets).
+?4: Invitación concreta: “Te propongo una sesión de diagnóstico de 45’ sin costo para…”.
+?5: 2–3 opciones de horarios + link a agenda (si tienes Calendly/Google).
+?Guion de llamada
+?Apertura: recordar vínculo.
+?1 pregunta de contexto (“¿cómo están hoy con…?”).
+?Presentar rápidamente la propuesta de diagnóstico.
+?Cerrar con agendamiento (proponer 2 opciones concretas).
+?Mensaje corto tipo WhatsApp/DM
+?Saludo personalizado.
+?1 línea de reencuentro.
+?1 línea del valor que puedes aportar.
+?1 pregunta de cierre: “¿te hace sentido que coordinemos una breve llamada de 20’?”
+Deja estos textos en un documento compartido para que tú y soporte (cuando entre) los usen estándar.
+
+3. Definir oferta de entrada (diagnóstico / piloto / sesión ejecutiva)
+Semana 2–3
+1.Elegir 1–2 productos de entrada máximo (no más):
+?Ejemplo:
+?Sesión ejecutiva 1:1 (60–90’) para CEO/director.
+?Diagnóstico corto para equipo directivo (entrevista + reporte breve).
+2.Estandarizar la estructura:
+?Objetivo
+?Alcance (qué incluye / qué no incluye)
+?Duración / formato
+?Entregable (ej: 1 página de hallazgos + recomendaciones)
+?Precio (si aplica) o condición (ej: sin costo para cartera histórica, por tiempo limitado).
+3.Armar textos cortos tipo “ficha técnica” para usar en correos y propuestas.
+
+4. Montar pipeline único + etapas + tablero semanal (ORASI Lab)
+Semana 3
+1.Elegir herramienta para pipeline MVP (ORASI Lab con tus apps): Opciones típicas:
+?Trello / Notion / Airtable / Sheet estructurado + algún CRM ligero (HubSpot free).
+2.Definir etapas del pipeline (simples):
+?Contacto enviado
+?Respuesta recibida
+?Reunión agendada
+?Reunión realizada
+?Propuesta enviada
+?En negociación
+?Cerrado ganado
+?Cerrado perdido
+3.Crear vista por etapas (kanban o tabla) y campos mínimos:
+?Empresa, contacto, segmentación (A/B/C), origen (cartera, web, LinkedIn…), fecha próximo paso, monto estimado, responsable.
+4.Diseñar tablero semanal (1 página):
+?Nº de contactos enviados
+?Nº de reuniones agendadas / realizadas
+?Nº de propuestas enviadas
+?Nº de cierres
+?% pipeline actualizado
+
+5. Activos comerciales: presentación corta + propuesta tipo + argumentario
+Semana 3–4
+1.Presentación corta (5–7 diapositivas):
+?Quién es Zolla hoy
+?Problemas que resuelves
+?Servicios núcleo
+?Casos breves (incluso si son anónimos)
+?Oferta de entrada (diagnóstico / sesión)
+?Próximos pasos / llamada a la acción
+2.Propuesta tipo (plantilla):
+?Portada
+?Contexto / entendimiento del problema
+?Propuesta de solución (modular)
+?Metodología
+?Cronograma / inversión
+?Condiciones
+?Firma y contacto
+3.Argumentario:
+?Lista de objeciones frecuentes + respuestas
+?3–5 beneficios clave de trabajar contigo
+?Diferenciales de Zolla vs. otros
+
+ABRIL — RECONTACTO + REUNIONES + PRESENCIA
+Objetivo del mes: Poner en movimiento la máquina: hablar con gente, tener reuniones, empezar a mostrarte en digital.
+1. Ejecutar campaña Top 20/Top 50 (mensaje ? llamada ? reunión ? seguimiento)
+Semana 1–4 (ritmo constante)
+1.Plan semanal concreto (ejemplo):
+?Contactar 5 del Top 20 + 10 del Top 50 por semana.
+2.Secuencia por cada contacto:
+?Día 1: Enviar correo/LinkedIn (usar guion).
+?Día 3–4: Si no responde, enviar mensaje corto recordatorio / WhatsApp.
+?Día 5–7: Llamada telefónica para agendar.
+3.Registrar todo en el pipeline:
+?Cada nuevo contacto va a “Contacto enviado”.
+?Si responde/interesa, pasa a “Respuesta recibida”.
+?Cuando haya fecha, a “Reunión agendada”.
+4.Antes de cada reunión:
+?Revisar breve histórico de relación.
+?Preparar 2–3 preguntas clave de diagnóstico.
+5.Después de la reunión (máx. 24h):
+?Resumen de la conversación + próximos pasos.
+?Mover etapa en pipeline.
+?Si aplica, preparar y enviar propuesta (dentro de 48–72h).
+
+2. LinkedIn: 2 posts/semana + 1 video/semana
+1.Calendarizar 4 semanas de contenido:
+?Post 1: Idea / reflexión de liderazgo con aprendizaje práctico.
+?Post 2: Mini caso o historia (manteniendo confidencialidad).
+?Video (1–3 min): Tip concreto, micro-clase o comentario sobre un reto actual de líderes.
+2.Proceso semanal:
+?Lunes: Publicar post 1.
+?Miércoles/Jueves: Publicar video.
+?Viernes: Publicar post 2.
+3.Cada publicación con CTA suave:
+?“Si este tema te está pasando, puedo ayudarte con una sesión de diagnóstico…”.
+4.Responder comentarios y mensajes en <24h y registrar leads en pipeline.
+
+3. Web: CTA “Agenda diagnóstico” + formulario mejorado
+1.Definir CTA principal del sitio:
+?Botón visible: “Agenda un diagnóstico sin costo” (o equivalente).
+2.Configurar formulario con datos de negocio:
+?Nombre, correo, empresa, cargo, tamaño del equipo, principal desafío.
+3.Conectar formulario con tu sistema (ORASI Lab):
+?Que cada envío:
+?Dispare un email de agradecimiento.
+?Cree automáticamente un lead en el pipeline (o que soporte lo haga diariamente).
+
+4. Propuestas modulares + seguimiento por fecha
+1.Ajustar tu plantilla de propuesta con módulos:
+?Módulo A: Diagnóstico
+?Módulo B: Taller
+?Módulo C: Coaching 1:1, etc.
+2.Cada propuesta con “fecha de decisión sugerida”:
+?Ej: “Esta propuesta es válida hasta el XX/XX”.
+3.Crear rutina de seguimiento (ejemplo):
+?+3 días de enviar: mail corto de confirmación/consulta.
+?+7–10 días: llamada / mensaje para resolver dudas.
+?Todo con recordatorios en tu sistema de tareas.
+
+5. ORASI Lab: dashboard semanal + registro obligatorio
+1.Establecer un momento fijo semanal (ej: viernes 16:00):
+?Actualizar pipeline al 100%.
+?Exportar / revisar tablero de KPIs.
+2.Comité semanal (tú + quien esté involucrado):
+?Revisar:
+?Nº contactos, reuniones, propuestas.
+?Qué se ganó / perdió.
+?Qué mensajes funcionaron mejor.
+?Definir foco de la próxima semana.
+
+MAYO — CONVERSIÓN Y VALIDACIÓN DEL SISTEMA
+Objetivo del mes: Que el pipeline se mueva con disciplina y empiecen a cerrar proyectos de entrada.
+1. Seguimiento disciplinado del pipeline
+1.Rutina diaria (30–45 min):
+?Revisar etapa por etapa:
+?¿A quién debo escribir hoy?
+?¿A quién llamar?
+?¿Qué propuesta falta enviar/cerrar?
+2.No dejar “pendientes invisibles”:
+?Toda acción pendiente debe tener fecha y responsable en el sistema.
+
+2. Cerrar proyectos de entrada y documentar casos
+1.Para cada proyecto cerrado:
+?Documentar en 1–2 páginas:
+?Situación inicial.
+?Intervención que hiciste.
+?Resultados (cuantitativos o cualitativos).
+?Testimonio (si el cliente acepta).
+2.Liberar 1–2 mini casos públicos (adaptados, sin detalles sensibles):
+?Usarlos en:
+?LinkedIn (post/carrusel).
+?Web (sección “casos de éxito”).
+?Presentación comercial.
+
+3. Optimizar mensajes por segmento y oferta
+1.Revisión de desempeño (fin de mayo):
+?¿Qué guiones tuvieron mejor tasa de respuesta?
+?¿Quién respondió más: A, B o C?
+?¿Qué oferta de entrada se pidió más?
+2.Ajuste:
+?Mantener los mensajes con mejores indicadores.
+?Eliminar lo que no funciona (palabras demasiado genéricas, CTAs débiles).
+
+4. Consolidar tablero de KPIs + checklist semanal ORASI
+1.Definir KPIs fijos:
+?Contactos hechos
+?Respuestas
+?Reuniones
+?Propuestas
+?Cierres
+?% pipeline actualizado
+?% seguimientos a tiempo
+2.Checklist semanal (para ti y soporte):
+?¿Pipeline 100% actualizado?
+?¿Todas las propuestas enviadas tienen próxima acción?
+?¿Se respondió a todos los leads <24h?
+
+JUNIO — ARRANQUE Q2: TRACCIÓN DIGITAL CONTROLADA
+Objetivo del mes: Encender el motor digital B2B con control: capturar leads y gestionarlos bien.
+1. Lead magnet (v1): checklist/guía vocería/liderazgo
+1.Definir tema súper concreto (ejemplos):
+?“Checklist para preparar vocería en contextos de crisis”
+?“7 errores frecuentes de líderes al comunicar cambios a su equipo”
+2.Crear documento (4–6 páginas máximo):
+?Título potente
+?1–2 páginas de contexto
+?Checklist o pasos prácticos
+?CTA final: invita a un diagnóstico / sesión.
+3.Diseñarlo simple (Canva / similar) y exportar a PDF.
+
+2. Landing de captura + formulario
+1.Landing súper enfocada:
+?Título ? Beneficio del lead magnet.
+?3 bullets de valor.
+?Formulario (nombre, email, empresa, rol, principal reto).
+?Botón: “Descargar guía”.
+2.Automatización mínima:
+?Al enviar:
+?Email con el PDF.
+?Registro del lead en el pipeline (con origen “Lead magnet”).
+
+3. SLA comercial: respuesta a leads <24h + guion de seguimiento
+1.Definir proceso:
+?Alguien (tú o soporte) revisa diariamente:
+?Nuevos leads de la landing.
+?Dentro de las primeras 24h:
+?Email personalizado o mensaje tipo:
+?Agradecer descarga.
+?1 pregunta sobre su contexto.
+?Ofrecer breve llamada/diagnóstico.
+2.Guion de seguimiento para estos leads:
+?Secuencia de 2–3 emails/mensajes si no responden:
+?Día 1: Gracias + pregunta.
+?Día 4–5: Recordatorio + pequeño tip extra de valor.
+?Día 8–10: Cierre suave, dejando puerta abierta.
+
+4. Contenido con CTA (no solo visibilidad)
+1.Usar el lead magnet y el diagnóstico como CTA:
+?Algunos posts/videos de junio deben terminar con:
+?“Si quieres esta checklist, descárgala aquí…”
+?“Si esto te resuena, agendemos un diagnóstico…”
+2.Medir por canal:
+?De dónde llegan los leads que sí convierten (LinkedIn, web, referidos…).
+
+5. ORASI Lab: lead ? registro ? alerta ? seguimiento + reporte por origen
+1.Asegurarte de que:
+?Cada lead tiene origen marcado (web, LinkedIn, lead magnet, cartera).
+?El sistema dispara alerta de seguimiento (o soporte revisa cada día).
+2.Reporte mensual por origen:
+?Nº leads por canal.
+?Nº reuniones agendadas por canal.
+?Nº propuestas / cierres por canal.
+
+EVALUACIÓN DE LA INCORPORACIÓN DE SOPORTE ADMINISTRATIVO / COMERCIAL
+Tu propio plan ya lo anticipa y, visto lo que quieres hacer, no es opcional a medio plazo si quieres que esto funcione sin que tú te quemes.
+1. ¿Cuándo conviene incorporarlo?
+?Ideal:
+?Desde abril mínimo a part-time, para:
+?Actualizar pipeline.
+?Dar soporte a agenda y seguimiento.
+?Cargar/publicar contenido.
+?Crítico:
+?A más tardar antes de junio, cuando enciendas el motor digital (landing + lead magnet). Si llegas a junio sin soporte, el riesgo es:
+?Leads sin respuesta <24h.
+?Pipeline desactualizado.
+?Oportunidades que se “caen por la grieta”.
+2. Rol recomendado (lo adapto a tu realidad)
+Título: Coordinador/a de Soporte Comercial y Marketing (Operativo–Digital)
+Modalidad: Part-time (ej. 4h/día, 3–5 días/semana) al inicio.
+Responsabilidades clave (muy concretas)
+1.Pipeline y CRM (todos los días):
+?Ingresar nuevos contactos.
+?Actualizar etapas después de reuniones/propuestas (tú le dictas cambios rápido).
+?Asegurarse de que no haya negocios sin “próxima acción” registrada.
+2.Agenda y seguimiento de propuestas:
+?Coordinar horarios con clientes.
+?Poner recordatorios de seguimiento.
+?Enviar correos de confirmación / resúmenes operativos.
+3.Contenido y activos digitales:
+?Cargar y programar posts/videos según calendario que tú defines.
+?Mantener ordenado el drive de presentaciones, plantillas, casos.
+4.Formularios, landing, CRM básico:
+?Verificar que formularios funcionen.
+?Descargar leads de la landing y meterlos al pipeline.
+?Monitorear que se cumpla el SLA <24h (avisarte si hay algo urgente).
+Perfil mínimo (como bien definas en tu plan)
+?Muy ordenado/a, cómodo con Excel/Sheets.
+?Manejo básico de CRM/pipeline (no tiene que ser experto, pero sí disciplinado).
+?Redacción operativa correcta (mails estándar, mensajes de seguimiento).
+?Manejo de herramientas digitales y disposición a usar IA.
+3. Riesgos de no incorporar soporte
+?Tu tiempo se va en:
+?Actualizar Excel, coordinar horarios, subir posts…
+?En lugar de: hablar con clientes, hacer sesiones, cerrar proyectos.
+?A mayor volumen (sobre todo en mayo/junio), típicamente pasa:
+?Leads respondidos tarde o nunca.
+?Propuestas se enfrían por falta de seguimiento.
+?No se miden bien los resultados (no sabes qué canal funciona).
+4. Cómo integrarlo en la práctica (primer mes de la persona)
+1.Semana 1 (onboarding):
+?Explicarle el plan Mar–Jun, el pipeline y tu forma de trabajar.
+?Mostrarle: cartera, herramientas, plantillas.
+?Definir qué hace él/ella y qué haces tú cada día y cada semana.
+2.Semana 2–3:
+?Que se ocupe ya de:
+?Mantener pipeline.
+?Coordinar reuniones y recordatorios.
+?Programar contenido.
+3.Semana 4 y en adelante:
+?Incluirlo en el comité semanal (15–20 min de su participación).
+?Pedirle que lleve el “reporte corto” semanal (1 página).
+5. KPIs para ese rol
+?% pipeline actualizado.
+?% seguimientos realizados en tiempo.
+?Nº de errores en agenda / propuestas (ideal: 0).
+?Publicaciones ejecutadas vs plan.
+
+Si quieres, en un siguiente mensaje puedo:
+?Ayudarte a redactar los guiones concretos (correo, llamada, WhatsApp) para el reingreso 2026.
+?O ayudarte a diseñar el perfil de la persona de soporte para publicar la vacante (texto del anuncio, pruebas para evaluar skills, etc.). ¿Qué te sirve más como siguiente paso?
+
+Claude Sonnet 4.5
+
+Gemini 3 Pro Preview
+Basado en el documento "Plan_Zolla_Mar-Jun_2026 (1).pdf", he desarrollado un desglose detallado paso a paso para la ejecución de las actividades mensuales, seguido de una evaluación crítica sobre la incorporación del soporte administrativo/comercial.
+Dado que hoy es 27 de febrero de 2026, este plan está diseñado para comenzar de inmediato (en las próximas 72 horas) para cumplir con el arranque de marzo.
+
+PARTE 1: Ejecución Paso a Paso (Marzo – Junio 2026)
+El objetivo central es reactivar la cartera histórica utilizando el sistema ORASI Lab (MVP con apps existentes) y generar tracción comercial rápida.
+Marzo: Orden y Activación de Base (El Cimiento)
+Objetivo: Tener a quién llamar, qué decir y dónde anotarlo.
+1. Segmentación de Cartera (Semana 1)
+?Paso 1: Exportar toda la base de datos histórica (20 años) a un Excel maestro.
+?Paso 2: Realizar limpieza de datos (eliminar duplicados, correos rebotados).
+?Paso 3: Clasificar contactos en A (Alto potencial/Decisores), B (Medio) y C (Bajo/Desactualizado).
+?Paso 4: Seleccionar manualmente el Top 20 (prioridad inmediata) y el Top 50 (siguiente ola).
+?Paso 5: Investigar en LinkedIn el estatus actual de los contactos del Top 20 para personalizar el mensaje.
+2. Definición de Oferta y Mensaje (Semana 1-2)
+?Paso 1: Redactar el "Mensaje de Reingreso 2026". Clave: No vender de inmediato, sino reconectar con autoridad.
+?Paso 2: Crear el guion de llamada y mensaje de WhatsApp/LinkedIn.
+?Paso 3: Definir el entregable de la "Oferta de Entrada" (ej. Diagnóstico de Liderazgo o Sesión Ejecutiva). Debe tener precio, alcance y duración clara.
+?Paso 4: Actualizar la presentación corporativa (versión corta, máx. 10 slides) y crear una plantilla de propuesta en Word/Canva.
+3. Configuración ORASI Lab - MVP (Semana 2)
+?Paso 1: Elegir la herramienta de Pipeline (Trello, HubSpot Free o Excel avanzado).
+?Paso 2: Configurar las columnas del embudo: Prospecto ? Contactado ? Reunión Agendada ? Propuesta Enviada ? Ganado/Perdido.
+?Paso 3: Configurar el Tablero de Control Semanal (Dashboard) donde se medirán los KPIs de la página 11.
+4. Inicio de Contacto (Semana 3-4)
+?Paso 1: Enviar correos personalizados al primer bloque del Top 20 (5 por día para poder gestionar respuestas).
+?Paso 2: Realizar llamadas de seguimiento 48 horas después del correo.
+
+Abril: Recontacto, Reuniones y Presencia
+Objetivo: Llenar la agenda y empezar a enviar propuestas.
+1. Ejecución de Campaña Top 20/50 (Todo el mes)
+?Paso 1: Ejecutar rutina diaria de prospección: 1 hora bloqueada en agenda para llamadas/mensajes.
+?Paso 2: Registrar cada interacción en el Pipeline (ORASI Lab) inmediatamente.
+?Paso 3: Agendar reuniones de diagnóstico. Meta: Convertir contacto en cita.
+2. Activación de Marketing - LinkedIn (Recurrente)
+?Paso 1: Calendario editorial: Definir temas los viernes para la semana siguiente.
+?Paso 2: Publicar 2 posts de texto/imagen (ej. Martes y Jueves) sobre dolor del cliente vs. solución Zolla.
+?Paso 3: Publicar 1 video corto (ej. Miércoles) con Moncho hablando de tendencias/autoridad.
+3. Optimización Web (Semana 1-2)
+?Paso 1: Revisar la Home actual.
+?Paso 2: Insertar/Destacar botón (CTA) "Agendar Diagnóstico".
+?Paso 3: Vincular ese botón a un formulario simple (Nombre, Empresa, Cargo, Email) o directo a Calendly.
+4. Gestión de Propuestas (Reactivo)
+?Paso 1: Tras cada reunión, enviar propuesta "Express" en menos de 48-72h (usando la plantilla de marzo).
+?Paso 2: Agendar la fecha de seguimiento en el mismo momento del envío.
+
+Mayo: Conversión y Validación del Sistema
+Objetivo: Cerrar negocios y asegurar que el sistema no dependa de la memoria.
+1. Seguimiento Disciplinado (Semanal)
+?Paso 1: Revisión de Pipeline los lunes: ¿Qué propuestas están pendientes?
+?Paso 2: Ejecutar "Guion de seguimiento" para propuestas enviadas hace >5 días sin respuesta.
+?Paso 3: Mover tratos cerrados a "Onboarding" y los perdidos a "Nutrición" (preguntar por qué no se cerró).
+2. Documentación y Optimización (Quincenal)
+?Paso 1: Analizar qué mensajes de abril tuvieron mejor tasa de respuesta. Ajustar guiones.
+?Paso 2: Si se cierra un proyecto, documentar inmediatamente el "Caso de Éxito" (problema/solución) para usarlo en marketing.
+3. Gobernanza y KPIs (Semanal)
+?Paso 1: Comité semanal obligatorio (Fernando + Moncho + Soporte).
+?Paso 2: Revisar Dashboard ORASI: ¿Se cumplieron los envíos de propuestas? ¿Se hicieron los posts?
+?Paso 3: Validar checklist de cumplimiento.
+
+Junio: Arranque Q2 y Tracción Digital
+Objetivo: Escalar más allá de la base de datos histórica (Leads nuevos).
+1. Lead Magnet y Landing Page (Semana 1-2)
+?Paso 1: Empaquetar conocimiento experto en un PDF descargable (ej. "Checklist de Vocería 2026").
+?Paso 2: Crear una Landing Page sencilla (Título gancho + Beneficios + Formulario).
+?Paso 3: Configurar automatización: Cuando alguien llena el formulario, recibe el PDF por email automáticamente.
+2. SLA Comercial (Protocolo de Respuesta)
+?Paso 1: Establecer regla: Lead que entra por web se contacta en <24 horas.
+?Paso 2: Redactar plantilla de respuesta rápida para leads digitales (diferente a la de la cartera histórica).
+3. Contenido con Intención (Todo el mes)
+?Paso 1: Cambiar los CTAs de LinkedIn: De "comenta" a "descarga nuestra guía en el enlace".
+?Paso 2: Medir cuántos leads nuevos entran por el formulario vs. cartera histórica.
+
+PARTE 2: Evaluación del Soporte Administrativo y Comercial
+El documento (página 12) sugiere un perfil de "Coordinador/a de Soporte Comercial y Marketing (Operativo-Digital)". Aquí está la evaluación de esta incorporación:
+1. Necesidad Estratégica: ALTA
+El plan tiene dos motores: Cartera Histórica y Digital B2B.
+?Fernando y Moncho son perfiles directivos y de "cierre". Su tiempo vale dinero en reuniones estratégicas y relacionamiento.
+?El riesgo: Sin soporte, Fernando terminará haciendo carga de datos en el CRM, programando posts o persiguiendo firmas de contratos, lo que reducirá su tiempo para la estrategia y la venta.
+?Conclusión: El rol es indispensable para que el sistema "ORASI Lab" funcione. Sin alguien que "asegure que lo planeado se ejecute" (pág. 5), el plan quedará en buenas intenciones por falta de tiempo operativo.
+2. Evaluación del Perfil Propuesto
+?Modalidad Part-time: Es una decisión financiera prudente para la etapa "sin caja" o de arranque. Permite escalar el costo conforme ingresen los primeros cierres de marzo/abril.
+?Skills (Excel, CRM, Herramientas Digitales): Son los correctos. No se necesita una secretaria tradicional, se necesita un perfil híbrido que entienda tecnología (para manejar el CRM y la Landing) y tenga orden administrativo.
+3. Funciones Críticas (El "SLA" del Soporte)
+Para que esta inversión sea rentable, el soporte debe ser evaluado estrictamente por:
+1.Higiene del Pipeline: Garantizar que el CRM sea la "única fuente de verdad" y esté actualizado diariamente.
+2.Velocidad: Asegurar que las propuestas salgan en el plazo de 48-72h (si Fernando redacta la estrategia, Soporte la maqueta y envía).
+3.Constancia Digital: Que los posts y videos se suban sin falta, liberando a los directores de la operatividad de las redes.
+Recomendación Final sobre el Soporte:
+Contratar bajo modalidad de prueba por objetivos (Marzo).
+?KPI de prueba: Base de datos Top 50 limpia y cargada en el sistema + Pipeline configurado + 100% de cumplimiento en la agenda de reuniones.
+?Si pasa la prueba de marzo, se confirma para el Q2. Si no hay soporte, el riesgo de que el "Motor 2" (Digital) nunca arranque es muy alto, ya que requiere configuración técnica y seguimiento constante.
+Reflection
+Plan de Ejecución Detallado Mar-Jun 2026: Zolla Coaching & Development
+Basándome en tu plan estratégico, he desarrollado un desglose operativo completo que transforma la estrategia en acciones ejecutables día a día, junto con una evaluación integral de la incorporación del soporte administrativo/comercial.
+Desarrollo Mensual Paso a Paso
+MARZO: Orden y Activación de Base
+Objetivo del mes: Establecer fundamentos sólidos - cartera depurada, sistema funcionando, materiales listos.
+Semana 1-2: Depuración y Segmentación de Cartera
+Paso 1: Auditoría Completa de Cartera Histórica (Días 1-3)
+Realizarás una consolidación exhaustiva de todos los contactos acumulados en 20 años. Este proceso incluye extraer información de correos electrónicos, CRM anterior, hojas de cálculo, tarjetas de presentación y registros de interacciones previas. Crearás un archivo maestro en Google Sheets con las siguientes columnas esenciales:
+?Nombre empresa y persona de contacto
+?Cargo actual y email/teléfono
+?Última interacción (fecha aproximada)
+?Tipo de relación (cliente/prospecto/referido)
+?Servicios contratados previamente
+?Potencial estimado (alto/medio/bajo)
+?Notas relevantes sobre la relación
+Paso 2: Criterios de Segmentación A/B/C (Días 4-5)
+Establecerás criterios específicos para clasificar tu cartera:
+Segmento A (Alta Prioridad): Contactos que cumplan al menos 3 de estos criterios: relación comercial previa positiva, empresa +100 empleados, cargo de decisión (C-level, Director), industria con presupuesto para desarrollo, interacción en últimos 24 meses, referencia directa de Moncho.
+Segmento B (Prioridad Media): Empresas medianas (20-100 empleados), cargos intermedios con influencia, última interacción 2-4 años, industrias con ciclos de venta largos.
+Segmento C (Cultivo Largo Plazo): Empresas pequeñas, sin interacción +4 años, cargos sin poder de decisión directo.
+Paso 3: Definición Top 20 y Top 50 (Días 6-7)
+Del Segmento A, seleccionarás los 20 contactos con mayor probabilidad de conversión inmediata, considerando: relación personal directa, proyectos previos exitosos, empresas en transformación visible, acceso confirmado al decisor.
+Semana 2-3: Desarrollo de Mensajes y Ofertas
+Mensaje de Reingreso 2026 - Plantillas Específicas:
+Variante Cálida (Top 20 con relación personal):
+"[Nombre], han pasado [X años] desde que trabajamos juntos en [proyecto específico]. He estado siguiendo el crecimiento de [empresa] y me impresiona [logro específico]. En Zolla hemos evolucionado nuestro enfoque en desarrollo de liderazgo ejecutivo, y creo que podría aportarte valor en [desafío específico de su industria]. ¿Te parece que conversemos 30 minutos? Tengo algunas ideas que podrían interesarte para [objetivo concreto]."
+Variante Tibia (contactos sin interacción reciente):
+"[Nombre], retomo contacto porque Zolla está reactivando relaciones valiosas con un enfoque renovado en coaching ejecutivo y desarrollo de vocería. Veo que [empresa] está [situación identificable], y me gustaría ofrecerte un diagnóstico ejecutivo sin compromiso. ¿Tienes 20 minutos esta semana?"
+Definición de Ofertas de Entrada:
+1.Diagnóstico Ejecutivo de Liderazgo (60 minutos): Evaluación personalizada de estilo de comunicación, identificación de gaps en presencia ejecutiva, recomendaciones específicas, roadmap preliminar. Gratuito para Top 20.
+2.Sesión Ejecutiva de Diagnóstico Organizacional (2 horas): Reunión con equipo directivo para identificar gaps en cultura y comunicación. Metodología estructurada con entregable de roadmap preliminar.
+Semana 3-4: Configuración ORASI Lab y Activos Comerciales
+Sistema de Pipeline (ORASI Lab MVP):
+Configurarás tu pipeline con estas etapas específicas:
+1.Contacto Identificado
+2.Primer Contacto Enviado
+3.Respuesta Recibida
+4.Reunión Agendada
+5.Reunión Realizada
+6.Propuesta Enviada
+7.Negociación
+8.Cerrado-Ganado/Perdido
+9.En Pausa (con fecha de reactivación)
+Tablero Semanal de KPIs:
+?Contactos realizados/respuestas obtenidas
+?Reuniones agendadas/realizadas
+?Propuestas enviadas/tasa de cierre
+?% pipeline actualizado
+?% seguimientos a tiempo
+Activos Comerciales Esenciales:
+?Presentación corta (10 slides): Quién es Zolla hoy, problemas que resuelve, servicios núcleo, casos breves, oferta de entrada
+?Propuesta tipo modular con secciones intercambiables
+?Argumentario con respuestas a objeciones frecuentes
+ABRIL: Recontacto, Reuniones y Presencia
+Objetivo del mes: Activar la máquina comercial y establecer presencia digital.
+Ejecución de Campaña Top 20/50
+Rutina Diaria de Prospección (1 hora bloqueada):
+?5-7 contactos personalizados diarios para Top 20
+?Registro inmediato en pipeline de cada interacción
+?Seguimiento telefónico 48 horas después del email
+?Meta semanal: 25 contactos nuevos, 10 seguimientos
+Secuencia de Contacto por Lead:
+?Día 1: Envío de mensaje personalizado
+?Día 3: Mensaje corto recordatorio si no hay respuesta
+?Día 5-7: Llamada telefónica para agendar
+?Registro de cada intento en pipeline con próxima acción definida
+Estructura de Reuniones de Reactivación (45-60 minutos):
+1.Minutos 0-5: Reconexión personal y construcción de rapport
+2.Minutos 5-15: Diagnóstico de situación actual con preguntas abiertas
+3.Minutos 15-30: Demostración de expertise con insights relevantes
+4.Minutos 30-45: Presentación de oferta de entrada específica
+5.Minutos 45-60: Cierre y definición de próximos pasos concretos
+Activación LinkedIn: 2 Posts + 1 Video Semanal
+Estructura de Contenido:
+Post 1 (Lunes/Martes) - Insight de Valor: Formato: Hook inicial + desarrollo en 3-5 párrafos + pregunta para engagement + CTA suave hacia diagnóstico.
+Post 2 (Jueves/Viernes) - Caso de Éxito: Formato: Situación-Problema-Solución-Resultado + storytelling + CTA: "Si enfrentas desafío similar, conversemos"
+Video Semanal (Miércoles) - 60-90 segundos: Tip práctico accionable con Moncho como rostro principal. Estructura: Hook primeros 3 segundos + desarrollo 45-60 segundos + CTA de valor.
+Optimización Web y Propuestas
+Landing Page "Agenda tu Diagnóstico":
+?Titular claro con beneficio específico
+?4-5 beneficios del diagnóstico listados
+?Formulario simple: Nombre, Email, Empresa, Cargo, Principal desafío
+?Integración con sistema de alertas <24h
+Protocolo de Propuestas Express:
+?Envío en 48-72h post-reunión usando plantilla modular
+?Email de presentación resumiendo puntos clave de conversación
+?Seguimiento programado automáticamente día 3, 7 y 14
+MAYO: Conversión y Validación del Sistema
+Objetivo del mes: Cerrar proyectos de entrada y perfeccionar el sistema.
+Seguimiento Disciplinado del Pipeline
+Rutina Matutina de Pipeline (30 minutos diarios):
+?Minutos 0-10: Revisar reuniones del día y próximos 2 días
+?Minutos 10-20: Identificar propuestas sin seguimiento >3 días
+?Minutos 20-30: Definir acciones específicas del día y bloquear tiempo
+Protocolo de Seguimiento Post-Propuesta:
+?Toque 1 (Día 3): Email preguntando si recibieron y revisaron
+?Toque 2 (Día 7): Llamada para entender objeciones o proceso interno
+?Toque 3 (Día 14): Email de cierre suave definiendo próximos pasos
+Documentación de Casos y Optimización
+Para cada proyecto cerrado:
+?Documentar caso en 1-2 páginas: situación inicial/intervención/resultados
+?Solicitar testimonio formal con estructura específica
+?Crear versión anonimizada para marketing futuro
+Análisis de Efectividad:
+?Revisar qué mensajes tuvieron mejor tasa de respuesta
+?Identificar patrones por segmento (A/B/C) y industria
+?Ajustar guiones basado en data real de conversión
+JUNIO: Arranque Q2 - Tracción Digital Controlada
+Objetivo del mes: Activar motor digital B2B con leads nuevos.
+Activación de Lead Magnet v1
+Desarrollo de "Checklist del Líder Comunicador de Alto Impacto" (PDF 8-12 páginas):
+?Portada profesional con branding Zolla
+?15-20 items accionables organizados por categorías
+?Casos de éxito breves como prueba social
+?CTA final hacia Diagnóstico Ejecutivo gratuito
+Landing Page de Captura:
+?Titular orientado a beneficio específico
+?Lista de 5-7 beneficios del checklist
+?Formulario minimalista: Nombre, Email, Cargo, Empresa
+?Experiencia post-descarga con link directo + email automático
+SLA Comercial: Respuesta <24h
+Establecimiento de Estándares No Negociables:
+?Todo lead de formulario recibe contacto humano <24 horas
+?Propuestas post-reunión en máximo 72 horas
+?Seguimiento post-propuesta día 3 sin excepción
+Guion de Primera Llamada a Leads Digitales:
+"Hola [Nombre], habla Fernando de Zolla. ¿Te pillo en buen momento? Te llamo porque descargaste nuestro checklist hace [X días]. Quería asegurarme de que lo recibiste y ver si tienes alguna pregunta. [Pausa] Cuéntame, ¿qué te llevó a descargarlo? ¿Hay algún desafío específico de liderazgo que estés enfrentando?"
+Contenido con CTA y Medición por Canal
+Evolución de Contenido LinkedIn:
+?Cada post incluye CTA específico hacia lead magnet o diagnóstico
+?Tracking con UTM parameters para medir efectividad
+?Análisis semanal: qué tipo de contenido genera más conversiones
+Sistema de Medición Integrado:
+?Lead ? registro automático en pipeline con origen marcado
+?Alertas de seguimiento <24h
+?Reporte mensual por canal: LinkedIn, web, cartera, referidos
+
+Evaluación Integral del Soporte Administrativo/Comercial
+Análisis de Necesidad Estratégica: CRÍTICA
+La incorporación del soporte no es opcional si quieres que el plan funcione sin que Fernando se queme ejecutando tareas operativas. El análisis de carga de trabajo revela que sin soporte:
+Tiempo Diario Requerido en Tareas Operativas:
+?Actualización de pipeline: 45 minutos
+?Seguimiento de propuestas: 30 minutos
+?Publicación de contenido: 30 minutos
+?Coordinación de reuniones: 20 minutos
+?Total: 2+ horas diarias en tareas que no generan ingresos directos
+Costo de Oportunidad: Si Fernando dedica 2 horas diarias a operaciones, son 40 horas mensuales que podría usar en reuniones comerciales, desarrollo de relaciones estratégicas o cierre de negocios.
+Perfil Ideal y Responsabilidades Específicas
+Título: Coordinador/a de Operaciones Comerciales y Marketing Digital
+Responsabilidades Críticas (distribución de tiempo):
+40% - Gestión de Pipeline y CRM:
+?Actualización diaria del pipeline con información de reuniones
+?Registro de todas las interacciones en el sistema
+?Generación de alertas y recordatorios de seguimiento
+?Preparación de reporte semanal para comité
+?Limpieza y mantenimiento de base de datos
+30% - Coordinación Comercial:
+?Seguimiento a leads <24h (primer contacto, agendamiento)
+?Coordinación de agendas para reuniones comerciales
+?Envío de invitaciones, confirmaciones, recordatorios
+?Preparación de materiales pre-reunión
+?Tracking de propuestas y gestión de seguimientos
+20% - Soporte Marketing Digital:
+?Publicación operativa de contenido en LinkedIn
+?Edición básica de videos (cortes, subtítulos)
+?Monitoreo y respuesta inicial a comentarios
+?Actualización de landing pages
+?Gestión de formularios y automatizaciones
+10% - Administración de Activos:
+?Organización de casos de éxito y testimonios
+?Mantenimiento de biblioteca de propuestas
+?Actualización de materiales comerciales
+Modalidad de Contratación y ROI
+Fase 1 (Marzo-Abril): Part-Time 20 horas/semana
+?Justificación: Permite cubrir tareas críticas sin sobrecargar financieramente
+?Estructura: 4 horas diarias L-V o 2 días completos + 1 medio día
+?Permite evaluar fit antes de compromiso mayor
+Análisis de ROI:
+Inversión Estimada:
+?20 horas/semana × 4 semanas = 80 horas/mes
+?Tarifa estimada: $12-15 USD/hora (ajustar según mercado)
+?Costo mensual: $960-1,200 USD
+?Costo trimestral (Mar-Jun): $3,840-4,800 USD
+Retorno Esperado:
+?Oportunidades adicionales por mejor seguimiento: 2-3 proyectos extra/trimestre
+?Ticket promedio estimado: $3,000-5,000 USD por proyecto entrada
+?Ingreso adicional: $6,000-15,000 USD
+?ROI: 125-312% en 4 meses
+Costo de NO tener soporte:
+?Oportunidades perdidas por seguimiento lento: 20-30% de leads
+?Tiempo de Fernando en operaciones: 40 horas/mes = costo de oportunidad significativo
+?Riesgo de burnout y deterioro de calidad de ejecución
+KPIs para Evaluación del Soporte
+Cumplimiento Operativo:
+?% pipeline actualizado semanalmente (meta: 100%)
+?% SLAs cumplidos (respuesta <24h, seguimientos a tiempo)
+?% tareas checklist semanal completadas
+?Precisión en reportes (cero errores en datos)
+Impacto en Eficiencia Comercial:
+?Reducción en tiempo promedio de respuesta a leads
+?Número de oportunidades perdidas por falta de seguimiento (meta: 0)
+?Satisfacción de Fernando y Moncho con el soporte
+Proceso de Onboarding Estructurado
+Semana 1: Inmersión Total
+?Días 1-2: Presentación del negocio, acceso a sistemas, revisión de cartera
+?Días 3-4: Capacitación en procesos, shadowing de Fernando
+?Día 5: Primeras tareas supervisadas
+Semana 2: Ejecución con Supervisión
+?Daily standup 15 minutos con Fernando
+?Feedback constante y ajuste de procesos
+?Identificación de gaps y capacitación continua
+Semanas 3-4: Autonomía Progresiva
+?Reducir supervisión diaria a semanal
+?Inclusión en comité semanal
+?Empoderar para decisiones operativas básicas
+Recomendación Final
+Contratar es estratégicamente CORRECTO bajo estas condiciones:
+1.Procesos documentados: No contratar hasta tener pipeline definido y plantillas creadas
+2.Compromiso de supervisión: Fernando debe dedicar tiempo inicial a capacitación
+3.Definición clara de éxito: KPIs explícitos desde día 1
+4.Aceptación de curva de aprendizaje: Primeros 30 días son inversión en eficiencia futura
+Si la caja es muy limitada, alternativas:
+?Iniciar con 10 horas/semana en marzo, expandir en abril
+?Buscar talento junior que acepte tarifa menor por experiencia
+?Postponer solo hasta abril (no más tarde)
+Sin embargo, mi recomendación es NO postponer innecesariamente. El soporte bien elegido se paga solo en 1-2 meses y desbloquea crecimiento exponencial.
+
+Sistema de Gobernanza Semanal
+Comité Semanal (45 minutos - No Negociable)
+Estructura fija:
+?Minutos 0-10: Revisión KPIs del dashboard
+?Minutos 10-25: Análisis del pipeline (críticas, estancadas, nuevas)
+?Minutos 25-35: Evaluación de ejecución semanal
+?Minutos 35-45: Definición top 5 prioridades próxima semana
+Participantes: Fernando (obligatorio), Moncho (mínimo 2 veces/mes), Soporte (obligatorio si contratado)
+Factores Críticos de Éxito
+Disciplina sobre Motivación: El plan funciona solo con ejecución consistente, incluso sin motivación diaria.
+Foco en Pocas Cosas: Ejecutar este plan al 80% es mejor que un plan más ambicioso al 30%.
+Iteración Basada en Data: Dar 30 días mínimo para validar tácticas antes de cambiar.
+Comunicación Clara: Roles definidos entre Fernando (dirección comercial) y Moncho (apertura/cierre).
+Este plan es ambicioso pero ejecutable. Con disciplina, sistema correcto y soporte adecuado, Zolla puede reactivar su cartera, generar caja consistente y construir un motor comercial escalable para crecimiento sostenido.

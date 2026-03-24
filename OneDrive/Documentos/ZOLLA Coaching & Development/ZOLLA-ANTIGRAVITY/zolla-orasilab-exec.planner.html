@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zolla Exec Planner • Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981', // Emerald
+                        'primary-dark': '#059669',
+                        'slate-950': '#020617',
+                        'slate-900': '#0f172a',
+                        'slate-800': '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .nav-active {
+            background-color: #10b981;
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .card-premium {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        .card-premium:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+            transition: all 0.3s;
+        }
+
+        .pipeline-col {
+            min-height: 400px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 1.5rem;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 h-screen overflow-hidden">
+
+    <div class="flex h-full">
+
+        <!-- SIDEBAR -->
+        <div class="w-72 bg-slate-900 border-r border-white/5 flex flex-col">
+            <div class="p-8 border-b border-white/5">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-emerald-500/20 text-emerald-100">
+                        Z</div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">Zolla Exec</h1>
+                        <p class="text-[10px] text-emerald-400 font-bold tracking-widest uppercase">Premium Assistant
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mb-2">Periodo Actual</p>
+                    <select
+                        class="w-full bg-slate-800 border border-white/5 rounded-lg px-3 py-2 text-xs focus:ring-1 focus:ring-emerald-500 outline-none">
+                        <option>Marzo - Semana 1</option>
+                        <option>Marzo - Semana 2</option>
+                    </select>
+                </div>
+            </div>
+
+            <nav class="flex-1 px-4 py-6 space-y-2 text-sm">
+                <a onclick="navigateTo('dashboard')" id="nav-dashboard"
+                    class="nav-item flex items-center gap-3 px-4 py-3 cursor-pointer rounded-xl transition-all nav-active text-white">
+                    <i class="fas fa-grid-2-horizontal w-5"></i> Dashboard
+                </a>
+                <a onclick="navigateTo('pipeline')" id="nav-pipeline"
+                    class="nav-item flex items-center gap-3 px-4 py-3 cursor-pointer rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+                    <i class="fas fa-layer-group w-5"></i> Clientes & Pipeline
+                </a>
+                <a onclick="navigateTo('tareas')" id="nav-tareas"
+                    class="nav-item flex items-center gap-3 px-4 py-3 cursor-pointer rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+                    <i class="fas fa-check-circle w-5"></i> Tareas
+                </a>
+                <a onclick="navigateTo('contenido')" id="nav-contenido"
+                    class="nav-item flex items-center gap-3 px-4 py-3 cursor-pointer rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+                    <i class="fas fa-pen-nib w-5"></i> Contenido LinkedIn
+                </a>
+                <a onclick="navigateTo('kpis')" id="nav-kpis"
+                    class="nav-item flex items-center gap-3 px-4 py-3 cursor-pointer rounded-xl text-slate-400 hover:bg-white/5 transition-all">
+                    <i class="fas fa-chart-line w-5"></i> KPIs y Métricas
+                </a>
+            </nav>
+
+            <div class="p-4 m-4 bg-emerald-500/5 rounded-2xl border border-emerald-500/10">
+                <div class="flex items-center gap-3 mb-3">
+                    <img src="https://ui-avatars.com/api/?name=FR&background=10b981&color=fff"
+                        class="w-8 h-8 rounded-lg" />
+                    <div class="flex-1 overflow-hidden">
+                        <p class="text-xs font-bold text-white truncate">Fernando Ruiz</p>
+                        <p class="text-[10px] text-emerald-400">Admin Account</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-[10px] text-slate-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN AREA -->
+        <div class="flex-1 flex flex-col">
+            <!-- Top Bar -->
+            <div class="h-20 border-b border-white/5 flex items-center px-10 justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-white" id="page-title">Dashboard</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Bienvenido de nuevo, Fernando. Estas son tus prioridades de
+                        hoy.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="bg-slate-900 border border-white/5 px-4 py-2 rounded-xl text-sm flex items-center gap-3">
+                        <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-xs font-medium">Sincronizado</span>
+                    </div>
+                    <button onclick="generateWeeklyReport()"
+                        class="bg-emerald-500 hover:bg-emerald-600 px-6 py-2.5 rounded-xl text-sm font-bold text-slate-950 flex items-center gap-2 transition-all shadow-lg shadow-emerald-500/10">
+                        <i class="fas fa-star"></i> Generar Reporte
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex-1 overflow-auto p-10" id="main-content">
+
+                <!-- DASHBOARD -->
+                <div id="screen-dashboard" class="space-y-10">
+                    <!-- AI Assistant Banner -->
+                    <div
+                        class="bg-gradient-to-r from-emerald-500/20 to-transparent border border-emerald-500/10 rounded-3xl p-8 flex items-center justify-between">
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center text-3xl shadow-xl shadow-emerald-500/20 text-slate-950">
+                                <i class="fas fa-sparkles"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Sugerencia de Zolla IA</h3>
+                                <p class="text-sm text-slate-400 max-w-md">"Tienes 3 propuestas pendientes de
+                                    seguimiento. Te recomiendo priorizar a <strong>Banco del Sur</strong> hoy mismo."
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            class="bg-emerald-500/10 hover:bg-emerald-500/20 px-6 py-3 rounded-xl text-emerald-400 text-sm font-bold transition-all">
+                            Ver Plan de Acción
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="card-premium rounded-3xl p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">Cumplimiento Global
+                                </p>
+                                <i class="fas fa-check-double text-emerald-500"></i>
+                            </div>
+                            <p class="text-4xl font-bold text-white">78%</p>
+                            <div class="mt-4 w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full w-[78%]"></div>
+                            </div>
+                        </div>
+                        <div class="card-premium rounded-3xl p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">Propuestas</p>
+                                <i class="fas fa-file-invoice-dollar text-emerald-500"></i>
+                            </div>
+                            <p class="text-4xl font-bold text-white">5 / 8</p>
+                            <p class="text-[10px] text-emerald-400 mt-2 font-bold">+2 esta semana</p>
+                        </div>
+                        <div class="card-premium rounded-3xl p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">Agenda Hoy</p>
+                                <i class="fas fa-calendar-star text-emerald-500"></i>
+                            </div>
+                            <p class="text-4xl font-bold text-white">4</p>
+                            <p class="text-[10px] text-slate-500 mt-2 font-bold">2 Confirmadas</p>
+                        </div>
+                        <div
+                            class="card-premium rounded-3xl p-6 group cursor-pointer hover:bg-emerald-500 transition-all">
+                            <div class="flex justify-between items-start mb-4">
+                                <p
+                                    class="text-slate-400 text-xs font-bold uppercase tracking-wider group-hover:text-slate-900">
+                                    Conversión</p>
+                                <i class="fas fa-arrow-up-right text-emerald-500 group-hover:text-slate-950"></i>
+                            </div>
+                            <p class="text-4xl font-bold text-white group-hover:text-slate-950">31%</p>
+                            <p class="text-[10px] text-emerald-400 mt-2 font-bold group-hover:text-slate-900">+5% vs mes
+                                anterior</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-12 gap-8">
+                        <div class="col-span-8 space-y-6">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-white flex items-center gap-2">
+                                    <i class="fas fa-list-ul text-emerald-500"></i> Prioridades Semanales
+                                </h3>
+                                <button class="text-xs text-emerald-400 font-bold hover:underline">Ver todas</button>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="card-premium p-5 rounded-2xl flex items-center justify-between group">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-emerald-500">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-white">Enviar propuesta → Banco del Sur
+                                            </h4>
+                                            <p class="text-xs text-slate-500 mt-0.5">Vence hoy a las 18:00</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="completeTask(this)"
+                                        class="px-5 py-2.5 bg-emerald-500 text-slate-950 text-xs font-bold rounded-xl hover:scale-105 transition-all">Completar</button>
+                                </div>
+                                <div class="card-premium p-5 rounded-2xl flex items-center justify-between group">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-emerald-500">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-white">Llamada seguimiento → Constructora
+                                                Ideal</h4>
+                                            <p class="text-xs text-slate-500 mt-0.5">Programada para las 14:30</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="completeTask(this)"
+                                        class="px-5 py-2.5 bg-emerald-500 text-slate-950 text-xs font-bold rounded-xl hover:scale-105 transition-all">Completar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-4 space-y-6">
+                            <h3 class="font-bold text-white flex items-center gap-2">
+                                <i class="fas fa-ranking-star text-emerald-500"></i> Hot Leads
+                            </h3>
+                            <div class="card-premium p-6 rounded-3xl">
+                                <div class="space-y-6">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-8 h-8 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center text-xs font-bold">
+                                            1</div>
+                                        <div class="flex-1">
+                                            <p class="text-xs font-bold text-white">Banco del Sur</p>
+                                            <p class="text-[10px] text-slate-500">Score IA: 98%</p>
+                                        </div>
+                                        <div class="text-emerald-500 text-xs font-bold">TOP A</div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-8 h-8 bg-purple-500/20 text-purple-400 rounded-lg flex items-center justify-center text-xs font-bold">
+                                            2</div>
+                                        <div class="flex-1">
+                                            <p class="text-xs font-bold text-white">Red Tech Global</p>
+                                            <p class="text-[10px] text-slate-500">Score IA: 85%</p>
+                                        </div>
+                                        <div class="text-slate-500 text-xs font-bold">TOP B</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIPELINE -->
+                <div id="screen-pipeline" class="hidden">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Pipeline de Oportunidades</h3>
+                            <p class="text-sm text-slate-500 mt-1">Arrastra y suelta las oportunidades para actualizar
+                                su estado.</p>
+                        </div>
+                        <button class="bg-emerald-500 text-slate-950 px-6 py-2.5 rounded-xl text-sm font-bold">Nueva
+                            Oportunidad</button>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between px-2">
+                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Prospecto</h4>
+                                <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-1 rounded-md">3</span>
+                            </div>
+                            <div id="col-prospecto" class="pipeline-col p-4 space-y-4">
+                                <div
+                                    class="card-premium p-4 rounded-2xl cursor-grab active:cursor-grabbing border-l-4 border-l-slate-400">
+                                    <p class="text-xs font-bold text-white">Inmobiliaria Central</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Diagnóstico pendiente</p>
+                                    <div class="flex justify-between items-center mt-3">
+                                        <span
+                                            class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400">B</span>
+                                        <span class="text-[10px] font-bold text-white">$4,500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between px-2">
+                                <h4 class="text-xs font-bold text-blue-400 uppercase tracking-widest font-bold">
+                                    Contactado</h4>
+                                <span class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-1 rounded-md">1</span>
+                            </div>
+                            <div id="col-contactado" class="pipeline-col p-4 space-y-4">
+                                <div class="card-premium p-4 rounded-2xl cursor-grab border-l-4 border-l-blue-400">
+                                    <p class="text-xs font-bold text-white">Tech Solutions</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Enviado link agenda</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between px-2">
+                                <h4 class="text-xs font-bold text-purple-400 uppercase tracking-widest font-bold">
+                                    Propuesta</h4>
+                                <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2 py-1 rounded-md">2</span>
+                            </div>
+                            <div id="col-propuesta" class="pipeline-col p-4 space-y-4">
+                                <div class="card-premium p-4 rounded-2xl cursor-grab border-l-4 border-l-purple-400">
+                                    <p class="text-xs font-bold text-white">Banco del Sur</p>
+                                    <span class="text-[10px] font-bold text-emerald-400">$12,000</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between px-2">
+                                <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-widest font-bold">
+                                    Cierre</h4>
+                                <span
+                                    class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2 py-1 rounded-md">0</span>
+                            </div>
+                            <div id="col-cierre" class="pipeline-col p-4 space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPIs -->
+                <div id="screen-kpis" class="hidden">
+                    <h3 class="text-2xl font-bold text-white mb-2">KPIs y Métricas de Rendimiento</h3>
+                    <p class="text-sm text-slate-500 mb-10">Mecanismo interactivo para reportar actividad semanal.</p>
+
+                    <div class="grid grid-cols-3 gap-8">
+                        <div class="card-premium p-8 rounded-3xl">
+                            <p class="text-sm font-bold text-slate-400 mb-6 uppercase tracking-wider">Contactos
+                                Realizados</p>
+                            <div class="flex items-center justify-between">
+                                <button onclick="updateKPI('kpi-contacts', -1)"
+                                    class="w-12 h-12 bg-slate-800 rounded-xl hover:bg-slate-700 text-white transition-all">-</button>
+                                <div class="text-center">
+                                    <p class="text-5xl font-bold text-white" id="kpi-contacts">0</p>
+                                    <p class="text-[10px] text-slate-500 mt-2">META: 20</p>
+                                </div>
+                                <button onclick="updateKPI('kpi-contacts', 1)"
+                                    class="w-12 h-12 bg-emerald-500 rounded-xl hover:bg-emerald-600 text-slate-950 font-bold transition-all">+</button>
+                            </div>
+                        </div>
+                        <div class="card-premium p-8 rounded-3xl">
+                            <p class="text-sm font-bold text-slate-400 mb-6 uppercase tracking-wider">Respuestas
+                                Recibidas</p>
+                            <div class="flex items-center justify-between">
+                                <button onclick="updateKPI('kpi-replies', -1)"
+                                    class="w-12 h-12 bg-slate-800 rounded-xl hover:bg-slate-700 text-white transition-all">-</button>
+                                <div class="text-center">
+                                    <p class="text-5xl font-bold text-white" id="kpi-replies">0</p>
+                                    <p class="text-[10px] text-slate-500 mt-2">META: 5</p>
+                                </div>
+                                <button onclick="updateKPI('kpi-replies', 1)"
+                                    class="w-12 h-12 bg-emerald-500 rounded-xl hover:bg-emerald-600 text-slate-950 font-bold transition-all">+</button>
+                                <div class="flex items-center justify-between">
+                                    <button onclick="updateKPI('kpi-sent', -1)"
+                                        class="w-12 h-12 bg-slate-800 rounded-xl hover:bg-slate-700 text-white transition-all">-</button>
+                                    <div class="text-center">
+                                        <p class="text-5xl font-bold text-white" id="kpi-sent">0</p>
+                                        <p class="text-[10px] text-slate-500 mt-2">META: 2</p>
+                                    </div>
+                                    <button onclick="updateKPI('kpi-sent', 1)"
+                                        class="w-12 h-12 bg-emerald-500 rounded-xl hover:bg-emerald-600 text-slate-950 font-bold transition-all">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTENIDO LINKEDIN -->
+                    <div id="screen-contenido" class="hidden">
+                        <div class="flex items-center justify-between mb-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Consola de Contenido</h3>
+                                <p class="text-sm text-slate-500 mt-1">Estrategia semanal de LinkedIn y Personal
+                                    Branding.
+                                </p>
+                            </div>
+                            <div class="flex gap-3">
+                                <button
+                                    class="bg-slate-800 text-white px-6 py-2.5 rounded-xl text-sm font-bold border border-white/5">Calendario
+                                    Editorial</button>
+                                <button
+                                    class="bg-emerald-500 text-slate-950 px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+                                    <i class="fas fa-magic"></i> Zolla IA Writer
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-8">
+                            <div class="col-span-4 space-y-6">
+                                <div class="card-premium p-6 rounded-3xl">
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Temas
+                                        Recomendados</h4>
+                                    <div class="space-y-4">
+                                        <div
+                                            class="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl cursor-pointer hover:bg-emerald-500/10 transition-all">
+                                            <p class="text-xs font-bold text-emerald-400">Liderazgo Digital</p>
+                                            <p class="text-[10px] text-slate-500 mt-1">3 ideas listas para redactar</p>
+                                        </div>
+                                        <div
+                                            class="p-4 bg-slate-800/50 border border-white/5 rounded-2xl cursor-pointer hover:bg-white/5 transition-all">
+                                            <p class="text-xs font-bold text-white">Productividad Ejecutiva</p>
+                                            <p class="text-[10px] text-slate-500 mt-1">Basado en tus logros de la semana
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-premium p-6 rounded-3xl text-center">
+                                    <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-2">Meta
+                                        Semanal</p>
+                                    <p class="text-3xl font-bold text-white">1 / 3</p>
+                                    <div class="mt-4 w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                                        <div class="bg-emerald-500 h-full w-[33%]"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-span-8">
+                                <div class="card-premium rounded-3xl overflow-hidden">
+                                    <div class="p-6 border-b border-white/5 bg-slate-800/20">
+                                        <h4 class="text-sm font-bold text-white">Feed de Publicaciones</h4>
+                                    </div>
+                                    <div class="divide-y divide-white/5">
+                                        <div class="p-6 flex items-start gap-4">
+                                            <div
+                                                class="w-10 h-10 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center shrink-0">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="flex justify-between items-start">
+                                                    <h5 class="text-sm font-bold text-white">Post: "El fracaso de la
+                                                        digitalización..."</h5>
+                                                    <span
+                                                        class="text-[10px] bg-amber-500/10 text-amber-500 px-2 py-1 rounded">Borrador</span>
+                                                </div>
+                                                <p class="text-xs text-slate-500 mt-2 line-clamp-2">Muchos directores
+                                                    financieros creen que implementar un ERP es digitalizar, pero la
+                                                    realidad es que sin cambio cultural...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function navigateTo(screen) {
+                document.querySelectorAll('#main-content > div').forEach(div => div.classList.add('hidden'));
+                document.getElementById(`screen-${screen}`).classList.remove('hidden');
+
+                document.getElementById('page-title').textContent = {
+                    dashboard: 'Dashboard',
+                    pipeline: 'Clientes & Pipeline',
+                    tareas: 'Tareas y Agenda',
+                    contenido: 'Contenido LinkedIn',
+                    kpis: 'KPIs y Métricas'
+                }[screen];
+
+                document.querySelectorAll('.nav-item').forEach(el => {
+                    el.classList.remove('nav-active', 'text-white');
+                    el.classList.add('text-slate-400');
+                });
+                document.getElementById(`nav-${screen}`).classList.add('nav-active', 'text-white');
+            }
+
+            function updateKPI(id, val) {
+                const el = document.getElementById(id);
+                let current = parseInt(el.textContent);
+                current = Math.max(0, current + val);
+                el.textContent = current;
+            }
+
+            function completeTask(btn) {
+                btn.innerHTML = '<i class="fas fa-check"></i> Hecho';
+                btn.classList.replace('bg-emerald-500', 'bg-slate-800');
+                btn.classList.add('text-emerald-500');
+                btn.disabled = true;
+            }
+
+            function generateWeeklyReport() {
+                alert("✨ Generando Reporte Estratégico Zolla Premium...\n\nAnalizando 14 prospectos, 5 propuestas y métricas de LinkedIn.\nArchivo: Zolla_Report_Marzo_S1.pdf");
+            }
+
+            // Initialize Drag & Drop
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('.pipeline-col').forEach(col => {
+                    new Sortable(col, {
+                        group: 'pipeline',
+                        animation: 150,
+                        ghostClass: 'bg-emerald-500/10'
+                    });
+                });
+            });
+
+            // Inicializar
+            navigateTo('dashboard');
+        </script>
+</body>
+
+</html>

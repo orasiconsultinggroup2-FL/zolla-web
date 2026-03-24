@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOLLA IA • Meta-Strategist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="./src/styles/premium.css?v=32">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981',
+                        'neon-red': '#10b981',
+                        'sidebar': '#0f172a',
+                        'accent-orange': '#f97316',
+                        'accent-blue': '#3b82f6',
+                        'accent-purple': '#8b5cf6',
+                        'accent-green': '#10b981'
+                    },
+                    fontFamily: {
+                        'orbitron': ['Inter', 'sans-serif'],
+                        'jakarta': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Modern Sidebar Navigation */
+        .sidebar-container .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.25rem;
+            color: #94a3b8; /* Slate-400 */
+            font-weight: 500;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+        }
+
+        .sidebar-container .nav-item:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-container .nav-item.active {
+            background-color: #10b981;
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-canvas-bg text-slate-900 antialiased selection:bg-emerald-500/30 overflow-hidden">
+
+    <div class="app-container">
+
+        <!-- SIDEBAR (Executive Premium Style) -->
+        <aside class="sidebar-container h-full">
+
+            <!-- Branding Area -->
+            <div class="p-8 pb-6 border-b border-white/5 mb-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center font-bold text-white text-2xl shadow-xl shadow-emerald-500/40">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-black tracking-tighter text-white">ZOLLA <span class="text-emerald-400">IA</span></h1>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Meta-Strategist</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Control Selectors -->
+            <div class="px-6 mb-8 mt-2 space-y-6">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block px-2 italic">Strategic Period</label>
+                    <select id="month-select" class="w-full !bg-[#111827] !border-white/10 !text-white !rounded-xl !px-4 !py-3 !text-xs !font-bold outline-none focus:!border-emerald-500 transition-all cursor-pointer">
+                        <option value="marzo">Marzo · Orden y activación</option>
+                        <option value="abril">Abril · Recontacto y Reuniones</option>
+                        <option value="mayo">Mayo · Conversión y Validación</option>
+                        <option value="junio">Junio · Tracción Digital</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block px-2 italic">Iteration</label>
+                    <select id="week-select" onchange="ZollaStore.setWeek(this.value)" class="w-full !bg-[#111827] !border-white/10 !text-white !rounded-xl !px-4 !py-3 !text-xs !font-bold outline-none focus:!border-emerald-500 transition-all cursor-pointer">
+                        <option value="todas">Todas las Semanas</option>
+                        <option value="1">Semana 1</option>
+                        <option value="2">Semana 2</option>
+                        <option value="3">Semana 3</option>
+                        <option value="4">Semana 4</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tactical Navigation -->
+            <nav class="flex-1 px-2 space-y-1 overflow-y-auto scrollbar-hide py-4">
+                <p class="text-[9px] text-slate-600 font-black uppercase tracking-[0.4em] px-6 mb-4">Command Deck</p>
+                <div class="flex flex-col">
+                    <a onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item">
+                        <i class="fas fa-columns"></i> <span>Dashboard</span>
+                    </a>
+                    <a onclick="navigateTo('objetivos')" id="nav-objetivos" class="nav-item">
+                        <i class="fas fa-bullseye"></i> <span>Objetivos</span>
+                    </a>
+                    <a onclick="navigateTo('pipeline')" id="nav-pipeline" class="nav-item">
+                        <i class="fas fa-project-diagram"></i> <span>Pipeline</span>
+                    </a>
+                    <a onclick="navigateTo('tareas')" id="nav-tareas" class="nav-item">
+                        <i class="fas fa-tasks"></i> <span>Tareas</span>
+                    </a>
+                    <a onclick="navigateTo('contenido')" id="nav-contenido" class="nav-item">
+                        <i class="fas fa-pen-nib"></i> <span>Contenido</span>
+                    </a>
+                    <a onclick="navigateTo('blogia')" id="nav-blogia" class="nav-item">
+                        <i class="fas fa-bolt"></i> <span>Blog IA</span>
+                    </a>
+                    <a onclick="navigateTo('biblioteca')" id="nav-biblioteca" class="nav-item">
+                        <i class="fas fa-book-open"></i> <span>Biblioteca</span>
+                    </a>
+                    <a onclick="navigateTo('emails')" id="nav-emails" class="nav-item">
+                        <i class="fas fa-envelope-open-text"></i> <span>Emails</span>
+                    </a>
+                    <a onclick="navigateTo('kpis')" id="nav-kpis" class="nav-item">
+                        <i class="fas fa-analytics"></i> <span>KPIs</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Strategic Sync Status -->
+            <div class="px-8 py-4 border-t border-white/5 flex items-center justify-between">
+                <div class="flex items-center gap-3 group cursor-help transition-all" title="Estado de Sincronización en Tiempo Real">
+                    <div id="sync-indicator" class="w-2 h-2 rounded-full bg-slate-500 shadow-lg shadow-emerald-500/20 transition-all duration-1000"></div>
+                    <div>
+                        <p id="sync-text" class="text-[9px] text-slate-400 font-bold uppercase tracking-widest group-hover:text-white transition-all">Sincronizando...</p>
+                        <p class="text-[8px] text-slate-600 font-medium">Bóveda Estratégica</p>
+                    </div>
+                </div>
+                <i class="fas fa-satellite-dish text-slate-700 text-xs translate-y-0.5 animate-pulse"></i>
+            </div>
+
+            <!-- Footer Area -->
+            <div class="p-8 border-t border-white/5 bg-white/5">
+                <p class="text-[9px] text-slate-500 font-black uppercase tracking-widest leading-relaxed">
+                    ZOLLA Coaching<br>
+                    <span class="text-emerald-500/50 uppercase tracking-[0.3em]">Enterprise v3.5 Sync Pro</span>
+                </p>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content-wrapper">
+            <div id="main-content" class="scrollbar-hide">
+                <!-- COMPONENTS LOAD HERE -->
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Application Engine Loading -->
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="./src/articleBank.js?v=32"></script>
+    <script src="./src/store.js?v=32"></script>
+    <script src="./src/ZollaSync.js?v=32"></script>
+    <script src="./src/strategyData.js?v=32"></script>
+    <script src="./src/components/Dashboard.js?v=32"></script>
+    <script src="./src/components/Pipeline.js?v=32"></script>
+    <script src="./src/components/Contenido.js?v=32"></script>
+    <script src="./src/components/Tareas.js?v=32"></script>
+    <script src="./src/components/Biblioteca.js?v=32"></script>
+    <script src="./src/components/Emails.js?v=32"></script>
+    <script src="./src/components/KPIs.js?v=32"></script>
+    <script src="./src/components/BlogIA.js?v=32"></script>
+    <script src="./src/main.js?v=32"></script>
+
+    <!-- Notification System -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[999] flex flex-col gap-3"></div>
+    <script>
+        window.showNotification = (title, message, type = 'warning') => {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const colors = {
+                warning: 'bg-white border-amber-200 shadow-amber-500/10 text-amber-600',
+                success: 'bg-white border-emerald-200 shadow-emerald-500/10 text-emerald-600',
+                info: 'bg-white border-blue-200 shadow-blue-500/10 text-blue-600'
+            };
+
+            const icons = {
+                warning: 'fa-bell text-amber-500',
+                success: 'fa-check-circle text-emerald-500',
+                info: 'fa-info-circle text-blue-500'
+            };
+
+            toast.className = `p-4 rounded-2xl shadow-xl w-80 border transform transition-all duration-500 translate-x-full opacity-0 flex items-start gap-4 ${colors[type]}`;
+            toast.innerHTML = `
+                <div class="mt-1"><i class="fas ${icons[type]} text-lg animate-bounce"></i></div>
+                <div class="flex-1">
+                    <p class="font-bold text-slate-800 text-sm mb-1">${title}</p>
+                    <p class="text-[11px] font-medium text-slate-500 leading-tight">${message}</p>
+                </div>
+                <button class="text-slate-400 hover:text-slate-600 transition-all text-xs" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+
+            // Auto remove
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => toast.remove(), 500);
+            }, 6000);
+        };
+
+        // Trigger task reminder after initial load
+        setTimeout(() => {
+            window.showNotification('ATENCIÓN REQUERIDA', 'Tienes 3 tareas estratégicas pendientes de ejecución esta semana. No olvides actualizarlas en el Planificador.', 'warning');
+        }, 2500);
+    </script>
+</body>
+
+</html>
