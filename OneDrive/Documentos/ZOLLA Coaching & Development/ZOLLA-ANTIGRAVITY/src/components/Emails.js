@@ -189,28 +189,43 @@ window.Emails = {
       if (bodyEl) bodyEl.value = body;
    },
 
-   sendIonosWeb: () => {
-      const to = document.getElementById('email-client-select')?.value || document.getElementById('email-manual')?.value;
+    sendIonosWeb: () => {
+      const clientId = document.getElementById('email-client-select')?.value;
       const subj = document.getElementById('email-subject')?.value?.trim();
       const body = document.getElementById('email-body')?.value?.trim();
+      const templateName = window.Emails.state.selectedTemplate?.name || 'Manual';
 
-      if (!to || !subj || !body) return window.showNotification("Datos faltantes", "Completa destinatario, asunto y mensaje.", "warning");
+      if (!subj || !body) return window.showNotification("Datos faltantes", "Completa el asunto y el mensaje.", "warning");
+
+      // Register interaction in Pipeline if a client was selected
+      if (clientId && window.ZollaStore) {
+         window.ZollaStore.registerInteraction(clientId, 'email', `Plantilla: ${templateName}`);
+      }
 
       // Copiamos el cuerpo automáticamente para que el usuario solo pegue en IONOS
       navigator.clipboard.writeText(body).then(() => {
          window.showNotification("Cuerpo Copiado", "Solo pégalo en el mensaje nuevo de IONOS.", "success");
-         // Abrimos el dashboard principal de IONOS ya que los deeplinks de compose son volátiles en OX
+         // Abrimos el dashboard pincipal de IONOS
          window.open('https://email.ionos.com/appsuite/', '_blank');
       });
-   },
+    },
 
-   copyAndNotify: () => {
+    copyAndNotify: () => {
+      const clientId = document.getElementById('email-client-select')?.value;
       const body = document.getElementById('email-body')?.value?.trim();
+      const templateName = window.Emails.state.selectedTemplate?.name || 'Manual';
+
       if (!body) return;
+      
+      // Register interaction in Pipeline if a client was selected
+      if (clientId && window.ZollaStore) {
+         window.ZollaStore.registerInteraction(clientId, 'email', `Copiado: ${templateName}`);
+      }
+
       navigator.clipboard.writeText(body).then(() => {
          window.showNotification("Copiado", "Texto listo para pegar.", "success");
       });
-   },
+    },
 
    init: () => { }
 };

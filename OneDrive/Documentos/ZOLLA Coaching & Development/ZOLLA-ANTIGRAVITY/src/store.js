@@ -27,12 +27,13 @@ window.ZollaStore = {
         },
         posts: [],
         library: [],
+        hiddenPlanTasks: [],
         bbddHeaders: ['Contacto', 'Empresa', 'Cargo', 'Teléfono(s)', 'Email(s)', 'Producto a Ofrecer', 'URL Linkedin']
     },
 
     init() {
         try {
-            const keys = ['month', 'week', 'clients', 'pipeline', 'tasks', 'kpis', 'posts', 'library', 'bbddHeaders'];
+            const keys = ['month', 'week', 'clients', 'pipeline', 'tasks', 'kpis', 'posts', 'library', 'hiddenPlanTasks', 'bbddHeaders'];
             keys.forEach(key => {
                 const stored = localStorage.getItem('zolla_' + key);
                 if (stored) {
@@ -55,7 +56,7 @@ window.ZollaStore = {
         }
     },
 
-    save() {
+    save(shouldPush = true) {
         try {
             localStorage.setItem('zolla_month', this.state.month);
             localStorage.setItem('zolla_week', this.state.week);
@@ -65,6 +66,7 @@ window.ZollaStore = {
             localStorage.setItem('zolla_kpis', JSON.stringify(this.state.kpis));
             localStorage.setItem('zolla_posts', JSON.stringify(this.state.posts));
             localStorage.setItem('zolla_library', JSON.stringify(this.state.library));
+            localStorage.setItem('zolla_hiddenPlanTasks', JSON.stringify(this.state.hiddenPlanTasks));
             localStorage.setItem('zolla_bbddHeaders', JSON.stringify(this.state.bbddHeaders));
         } catch (err) {
             console.error("Persistent Storage Error:", err);
@@ -73,7 +75,7 @@ window.ZollaStore = {
             }
         } finally {
             // After local save, push to cloud if possible
-            if (window.ZollaSync) {
+            if (shouldPush && window.ZollaSync) {
                 window.ZollaSync.push();
             }
         }
@@ -143,6 +145,39 @@ window.ZollaStore = {
         }
     },
 
+    registerInteraction(clientId, type, detail) {
+        const lead = this.state.pipeline.find(l => l.id === clientId);
+        if (lead) {
+            if (!lead.interactions) lead.interactions = [];
+            
+            const interaction = {
+                date: new Date().toISOString(),
+                type: type, // 'email', 'meeting', 'call'
+                detail: detail
+            };
+            
+            lead.interactions.unshift(interaction);
+            lead.lastContact = interaction.date;
+            
+            // Auto-update KPI "Contactos hechos"
+            this.updateKPI('c-1', 1); // c-1 is usually "Contactos hechos" in StrategyData
+            
+            this.save();
+            return true;
+        }
+        return false;
+    },
+
+    updateLeadField(cardId, field, value) {
+        const lead = this.state.pipeline.find(l => l.id === cardId);
+        if (lead) {
+            lead[field] = value;
+            this.save();
+            return true;
+        }
+        return false;
+    },
+
     // Task Management
     addTask(task) {
         if (!task || !task.t) return;
@@ -179,12 +214,41 @@ window.ZollaStore = {
         this.save();
     },
 
+    deleteAllTasks() {
+        this.state.tasks = [];
+        this.state.hiddenPlanTasks = [];
+        this.save();
+    },
+
+    togglePlanTaskVisibility(id) {
+        if (this.state.hiddenPlanTasks.includes(id)) {
+            this.state.hiddenPlanTasks = this.state.hiddenPlanTasks.filter(x => x !== id);
+        } else {
+            this.state.hiddenPlanTasks.push(id);
+        }
+        this.save();
+    },
+
     // Content Management
     addPost(post) {
         if (!post || !post.content) return;
+        
+        // Prevención de duplicados: No permitir el mismo contenido exactamente en los últimos 10 segundos
+        const now = Date.now();
+        const isDuplicate = this.state.posts.some(p => 
+            p.content === post.content && 
+            p.platform === post.platform && 
+            (now - (parseInt(p.id) || 0) < 10000)
+        );
+        
+        if (isDuplicate) {
+            console.warn("Post duplicado detectado, ignorando...");
+            return;
+        }
+
         const newPost = {
             ...post,
-            id: Date.now(),
+            id: now,
             published: post.published || false
         };
         this.state.posts.unshift(newPost);

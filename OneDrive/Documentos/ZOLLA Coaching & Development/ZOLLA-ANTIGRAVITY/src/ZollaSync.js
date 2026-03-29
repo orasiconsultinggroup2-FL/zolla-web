@@ -63,11 +63,21 @@ window.ZollaSync = {
                 });
 
                 // Persist to local storage to keep offline capability
-                window.ZollaStore.save();
+                window.ZollaStore.save(false); // Do not trigger a push loop
                 
-                // Refresh current view if and only if navigation is ready
-                if (window.currentView && typeof window.navigateTo === 'function') {
-                    window.navigateTo(window.currentView);
+                // SMART REFRESH: Avoid flickering during editing
+                const isEditing = document.activeElement && 
+                                 (document.activeElement.tagName === 'INPUT' || 
+                                  document.activeElement.tagName === 'TEXTAREA' || 
+                                  document.activeElement.contentEditable === 'true');
+
+                if (!isEditing) {
+                    // Only refresh if we are on a static view or if the user is idle
+                    if (['dashboard', 'kpis'].includes(window.currentView)) {
+                        window.navigateTo(window.currentView);
+                    }
+                    // For editing views, we don't refresh to avoid losing cursor position
+                    // The state is already updated in memory, so the user will see it on next natural re-render
                 }
                 
                 this.lastSync = new Date();

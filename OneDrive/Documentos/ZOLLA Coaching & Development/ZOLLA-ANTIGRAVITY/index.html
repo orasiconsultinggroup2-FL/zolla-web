@@ -73,17 +73,32 @@
         <!-- SIDEBAR (Executive Premium Style) -->
         <aside class="sidebar-container h-full">
 
-            <!-- Branding Area -->
+            <!-- Identidad de Marca Dynamic -->
             <div class="p-8 pb-6 border-b border-white/5 mb-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center font-bold text-white text-2xl shadow-xl shadow-emerald-500/40">
+                    <div id="tenant-logo" class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center font-bold text-white text-2xl shadow-xl shadow-emerald-500/40">
                         <i class="fas fa-robot"></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-black tracking-tighter text-white">ZOLLA <span class="text-emerald-400">IA</span></h1>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Meta-Strategist</p>
+                        <h1 id="tenant-name" class="text-2xl font-black tracking-tighter text-white uppercase italic">ZOLLA <span class="text-emerald-400">IA</span></h1>
+                        <p id="tenant-tagline" class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Control Room Pro</p>
                     </div>
                 </div>
+            </div>
+
+            <div class="px-6 mb-8">
+               <button onclick="navigateTo('daily')" class="w-full bg-slate-900 border border-emerald-500/20 hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/10 text-white rounded-2xl p-4 transition-all group overflow-hidden relative">
+                  <div class="flex items-center gap-4 relative z-10">
+                     <div class="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center text-xs animate-pulse">
+                        <i class="fas fa-bolt"></i>
+                     </div>
+                     <div class="text-left">
+                        <p class="text-[10px] font-black uppercase tracking-widest">HOY TOCA ESTO</p>
+                        <p class="text-[8px] text-slate-500 font-bold uppercase mt-0.5">Vista 30s de Impacto</p>
+                     </div>
+                  </div>
+                  <i class="fas fa-rocket absolute -right-2 -bottom-2 text-4xl text-white/5 group-hover:text-white/10 transition-all"></i>
+               </button>
             </div>
 
             <!-- Dashboard Control Selectors -->
@@ -126,20 +141,27 @@
                         <i class="fas fa-tasks"></i> <span>Tareas</span>
                     </a>
                     <a onclick="navigateTo('contenido')" id="nav-contenido" class="nav-item">
-                        <i class="fas fa-pen-nib"></i> <span>Contenido</span>
+                        <i class="fas fa-layer-group"></i> <span>Estrategia de Contenido</span>
                     </a>
-                    <a onclick="navigateTo('blogia')" id="nav-blogia" class="nav-item">
-                        <i class="fas fa-bolt"></i> <span>Blog IA</span>
+                    <a onclick="navigateTo('cronograma')" id="nav-cronograma" class="nav-item">
+                        <i class="fas fa-calendar-alt"></i> <span>Plan Editorial</span>
                     </a>
-                    <a onclick="navigateTo('biblioteca')" id="nav-biblioteca" class="nav-item">
-                        <i class="fas fa-book-open"></i> <span>Biblioteca</span>
+                    <a onclick="navigateTo('blogmanager')" id="nav-blogmanager" class="nav-item">
+                        <i class="fas fa-globe"></i> <span>Gestión de Blog Público</span>
                     </a>
                     <a onclick="navigateTo('emails')" id="nav-emails" class="nav-item">
                         <i class="fas fa-envelope-open-text"></i> <span>Emails</span>
                     </a>
-                    <a onclick="navigateTo('kpis')" id="nav-kpis" class="nav-item">
-                        <i class="fas fa-analytics"></i> <span>KPIs</span>
-                    </a>
+                    <button id="nav-blogia" onclick="navigateTo('blogia')" class="nav-item group">
+                   <div class="nav-icon"><i class="fas fa-magic"></i></div>
+                   <span class="nav-text">Blog IA Gen</span>
+                </button>
+
+                <div class="mt-8 pt-8 border-t border-white/5 space-y-2">
+                    <button onclick="window.Auth.logout()" class="nav-item group text-rose-400 hover:bg-rose-500/10">
+                       <div class="nav-icon"><i class="fas fa-sign-out-alt"></i></div>
+                       <span class="nav-text font-black">Cerrar Sesión</span>
+                    </button>
                 </div>
             </nav>
 
@@ -177,19 +199,46 @@
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <script src="./src/articleBank.js?v=32"></script>
-    <script src="./src/store.js?v=32"></script>
-    <script src="./src/ZollaSync.js?v=32"></script>
-    <script src="./src/strategyData.js?v=32"></script>
-    <script src="./src/components/Dashboard.js?v=32"></script>
-    <script src="./src/components/Pipeline.js?v=32"></script>
-    <script src="./src/components/Contenido.js?v=32"></script>
-    <script src="./src/components/Tareas.js?v=32"></script>
-    <script src="./src/components/Biblioteca.js?v=32"></script>
-    <script src="./src/components/Emails.js?v=32"></script>
-    <script src="./src/components/KPIs.js?v=32"></script>
-    <script src="./src/components/BlogIA.js?v=32"></script>
-    <script src="./src/main.js?v=32"></script>
+    <!-- Scripts de Datos y Almacenamiento -->
+    <script src="./src/config.js?v=46"></script>
+    <script src="./src/utils.js?v=46"></script>
+    <script src="./src/data/cronograma_2026.js?v=46"></script>
+    <script src="./src/articleBank.js?v=46"></script>
+    <script src="./src/store.js?v=46"></script>
+    <script src="./src/ZollaSync.js?v=46"></script>
+    <script src="./src/strategyData.js?v=46"></script>
+    
+    <!-- Lógica de Componentes de la Interfaz -->
+    <script src="./src/components/Auth.js?v=46"></script>
+    <script src="./src/components/Diagnostic.js?v=46"></script>
+    <script src="./src/components/BlogManager.js?v=46"></script>
+    <script src="./src/components/Dashboard.js?v=46"></script>
+    <script src="./src/components/Pipeline.js?v=46"></script>
+    <script src="./src/components/Contenido.js?v=46"></script>
+    <script src="./src/components/Cronograma.js?v=46"></script>
+    <script src="./src/components/Tareas.js?v=46"></script>
+    <script src="./src/components/Biblioteca.js?v=46"></script>
+    <script src="./src/components/Emails.js?v=46"></script>
+    <script src="./src/components/KPIs.js?v=46"></script>
+    <script src="./src/components/BlogIA.js?v=46"></script>
+    <script src="./src/components/DailyView.js?v=46"></script>
+    <script src="./src/components/Onboarding.js?v=46"></script>
+    
+    <!-- Punto de Entrada Principal -->
+    <script src="./src/main.js?v=46"></script>
+
+    <script>
+        // Aplicar Branding de Tenant al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const config = window.getTenantConfig();
+            if (config) {
+                const nameEl = document.getElementById('tenant-name');
+                const taglineEl = document.getElementById('tenant-tagline');
+                if (nameEl) nameEl.innerHTML = `${config.brand.logoText} <span class="text-emerald-400">IA</span>`;
+                if (taglineEl) taglineEl.innerText = `${config.brand.tagline}`;
+            }
+        });
+    </script>
 
     <!-- Notification System -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-[999] flex flex-col gap-3"></div>

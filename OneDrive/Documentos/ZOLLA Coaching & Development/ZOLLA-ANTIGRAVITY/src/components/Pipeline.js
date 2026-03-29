@@ -61,12 +61,24 @@ window.Pipeline = {
                     const dispLinkedin = client[linkedinKey] || client._metadata?.linkedin || client.linkedin || 
                                          Object.entries(client).find(([k]) => k.toLowerCase().includes('linkedin') || k.toLowerCase().includes('url'))?.[1] || '';
 
-                    const dispSegment = client._metadata?.segment || client.segment || 'B';
+                    const lastContact = client.lastContact ? new Date(client.lastContact) : null;
+                    const diffDays = lastContact ? Math.floor((new Date() - lastContact) / (1000 * 60 * 60 * 24)) : 99;
                     
+                    let temp = { label: 'Frío', color: 'bg-blue-100 text-blue-600 border-blue-200', icon: 'fa-snowflake' };
+                    if (diffDays <= 7) temp = { label: 'Caliente', color: 'bg-red-100 text-red-600 border-red-200', icon: 'fa-fire' };
+                    else if (diffDays <= 14) temp = { label: 'Tibio', color: 'bg-orange-100 text-orange-600 border-orange-200', icon: 'fa-bolt' };
+
+                    const lastContactStr = lastContact ? lastContact.toLocaleDateString('es-PE', { day: '2-digit', month: 'short' }) : 'Sin contacto';
+
                     return `
                     <div data-id="${client.id}" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-emerald-500 hover:shadow-premium transition-all group cursor-grab active:cursor-grabbing">
                        <div class="flex justify-between items-start mb-4">
-                          <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-lg text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">TYPE ${dispSegment}</span>
+                          <div class="flex flex-col gap-1.5">
+                             <span class="px-2 py-0.5 bg-slate-50 border border-slate-100 rounded-lg text-[8px] font-black text-slate-400 uppercase tracking-widest w-fit">TYPE ${dispSegment}</span>
+                             <div class="flex items-center gap-2 px-2 py-0.5 rounded-lg border text-[8px] font-black uppercase tracking-widest ${temp.color}">
+                                <i class="fas ${temp.icon}"></i> ${temp.label}
+                             </div>
+                          </div>
                           <div class="flex items-center gap-2">
                              ${dispLinkedin ? `<a href="${dispLinkedin}" target="_blank" class="w-7 h-7 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-[10px] border border-blue-100 hover:bg-blue-600 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>` : ''}
                              <span class="text-[11px] font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-100 shadow-inner">$${(client.value || 5.0).toFixed(3)}K</span>
@@ -74,16 +86,27 @@ window.Pipeline = {
                        </div>
                        <div class="space-y-4">
                           <div class="flex flex-col gap-1.5">
-                             <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest pl-1">Organización</p>
                              <h4 class="text-[14px] font-black text-slate-900 group-hover:text-emerald-700 transition-all leading-tight bg-slate-50/50 p-2.5 rounded-xl border border-dashed border-slate-200">
                                 <i class="fas fa-building text-emerald-500/50 mr-2 text-[10px]"></i>${dispName}
                              </h4>
-                          </div>
-                          <div class="flex flex-col gap-1.5">
-                             <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest pl-1">Contacto Directo</p>
-                             <p class="text-[12px] text-slate-700 font-bold bg-emerald-50/30 px-3 py-2.5 rounded-xl border border-emerald-100/50 flex items-center gap-2">
+                             <p class="text-[11px] text-slate-700 font-bold px-1 flex items-center gap-2">
                                 <i class="fas fa-user-circle text-blue-500/50 text-xs"></i>${dispContact}
                              </p>
+                          </div>
+                          
+                          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-50">
+                             <div>
+                                <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Último contacto</p>
+                                <p class="text-[10px] font-bold text-slate-700">${lastContactStr}</p>
+                             </div>
+                             <div>
+                                <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Próxima acción</p>
+                                <input type="text" 
+                                       placeholder="Agendar..." 
+                                       value="${client.nextAction || ''}"
+                                       onblur="window.ZollaStore.updateLeadField('${client.id}', 'nextAction', this.value)"
+                                       class="text-[10px] font-black text-emerald-600 bg-transparent border-none p-0 outline-none w-full placeholder:font-normal placeholder:text-slate-300">
+                             </div>
                           </div>
                        </div>
                        <div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
@@ -91,7 +114,9 @@ window.Pipeline = {
                               <div class="w-2 h-2 rounded-full ${i === 3 ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse' : 'bg-blue-400'}"></div>
                               <span class="text-[9px] text-slate-400 font-black uppercase tracking-widest">${i === 3 ? 'En Cierre' : 'En Proceso'}</span>
                           </div>
-                          <button class="text-slate-300 hover:text-emerald-500 transition-all"><i class="fas fa-arrow-right-long text-xs"></i></button>
+                          <button class="text-slate-300 hover:text-emerald-500 transition-all" onclick="event.stopPropagation(); Pipeline.showInteractions('${client.id}')">
+                            <i class="fas fa-history text-xs"></i>
+                          </button>
                        </div>
                     </div>
                   `}).join('')}
@@ -212,9 +237,40 @@ window.Pipeline = {
       });
    },
 
-   openModal: () => {
-      const modal = document.getElementById('new-client-modal');
-      if (modal) modal.classList.remove('hidden');
+   showInteractions: (clientId) => {
+      const client = window.ZollaStore.state.pipeline.find(c => c.id === clientId);
+      if (!client) return;
+
+      const interactions = client.interactions || [];
+      const modal = document.createElement('div');
+      modal.id = 'interactions-modal';
+      modal.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[300] flex items-center justify-center p-4';
+      modal.innerHTML = `
+         <div class="bg-white w-full max-w-lg shadow-2xl rounded-3xl overflow-hidden animate-pop-in">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+               <h3 class="text-lg font-black text-slate-800 uppercase tracking-tight">Historial: ${client.name}</h3>
+               <button onclick="this.closest('#interactions-modal').remove()" class="text-slate-400 hover:text-slate-600"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6 max-h-[60vh] overflow-y-auto space-y-4">
+               ${interactions.length === 0 ? '<p class="text-center text-slate-400 py-8 text-xs font-bold uppercase tracking-widest">Sin interacciones registradas</p>' : 
+                 interactions.map(i => `
+                  <div class="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-slate-100">
+                        <i class="fas ${i.type === 'email' ? 'fa-envelope' : 'fa-handshake'}"></i>
+                     </div>
+                     <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">${new Date(i.date).toLocaleString()}</p>
+                        <p class="text-xs font-bold text-slate-700 mt-1">${i.detail}</p>
+                     </div>
+                  </div>
+                 `).join('')}
+            </div>
+            <div class="p-6 bg-slate-50 border-t border-slate-100">
+               <button onclick="this.closest('#interactions-modal').remove()" class="w-full bg-slate-900 text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all">Cerrar</button>
+            </div>
+         </div>
+      `;
+      document.body.appendChild(modal);
    },
    closeModal: () => {
       const modal = document.getElementById('new-client-modal');

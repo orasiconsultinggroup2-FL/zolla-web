@@ -17,19 +17,49 @@ window.Tareas = {
          }
       }
 
-      const filteredPlanTasks = data.fokus.map((task, i) => ({
-         id: 'p-' + monthKey + '-' + i,
-         t: task.t,
-         d: 'Plan Táctico ' + monthKey.charAt(0).toUpperCase() + monthKey.slice(1),
-         c: task.d || 'NO ASIGNADO',
-         p: 'Principal',
-         dl: 'Semana ' + (task.w || '1'),
-         w: task.w || '1',
-         status: window.ZollaStore.state.completedPlanTasks.includes('p-' + monthKey + '-' + i) ? 'Completada' : 'Pendiente',
-         isPlan: true
-      })).filter(t => week === 'todas' || t.w === String(week));
+       const hiddenPlan = window.ZollaStore.state.hiddenPlanTasks || [];
+       const filteredPlanTasks = data.fokus.map((task, i) => {
+          const id = 'p-' + monthKey + '-' + i;
+          return {
+             id,
+             t: task.t,
+             d: 'Plan Táctico ' + monthKey.charAt(0).toUpperCase() + monthKey.slice(1),
+             c: task.d || 'NO ASIGNADO',
+             p: 'Principal',
+             dl: 'Semana ' + (task.w || '1'),
+             w: task.w || '1',
+             status: window.ZollaStore.state.completedPlanTasks.includes(id) ? 'Completada' : 'Pendiente',
+             isPlan: true,
+             isHidden: hiddenPlan.includes(id)
+          };
+       }).filter(t => !t.isHidden && (week === 'todas' || t.w === String(week)));
 
-      const allTasks = [...filteredPlanTasks, ...filteredTasks];
+      let cronogramaTasks = [];
+      if (window.Cronograma2026 && (monthKey === 'marzo' || monthKey === 'abril')) {
+         cronogramaTasks = window.Cronograma2026.map((art, i) => {
+            const isCurrentMonth = art.date.includes(monthKey === 'marzo' ? '-03-' : '-04-');
+            if (!isCurrentMonth) return null;
+
+            const dObj = new Date(art.date + 'T12:00:00Z');
+            const d = dObj.getDate();
+            const w = Math.ceil(d / 7);
+
+            return {
+               id: 'crono-' + i,
+               t: 'Publicar: ' + art.title.substring(0, 30) + '...',
+               d: 'Plan Editorial Viral',
+               c: 'LinkedIn / Blog',
+               p: 'Secundaria',
+               w: String(w),
+               status: 'Pendiente', 
+               isPlan: false,
+               isArticle: true,
+               f: art.date 
+            };
+         }).filter(Boolean);
+      }
+
+      const allTasks = [...filteredPlanTasks, ...filteredTasks, ...cronogramaTasks];
       const viewMode = window.Tareas.viewMode || 'calendario';
 
       return `
@@ -40,87 +70,94 @@ window.Tareas = {
                      <i class="fas fa-clipboard-list text-xl text-slate-600"></i>
                  </div>
                  <div>
-                     <h2 class="text-2xl font-bold text-slate-800">Tareas</h2>
-                     <p class="text-[11px] text-slate-500 font-medium">Planificación y seguimiento</p>
+                     <h2 class="text-2xl font-bold text-slate-800 uppercase tracking-tighter italic">Hitos de Gestión</h2>
+                     <p class="text-[11px] text-slate-500 font-medium tracking-widest uppercase">Planificación y seguimiento mensual</p>
                  </div>
              </div>
              <div class="flex items-center gap-4">
                  <div class="flex bg-white rounded-lg border border-slate-200 p-1 shadow-sm">
-                     <button onclick="window.Tareas.viewMode='lista'; window.navigateTo('tareas');" class="${viewMode === 'lista' ? 'bg-emerald-500 text-white shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800 font-medium'} px-6 py-2 rounded-md text-xs transition-all">Lista</button>
-                     <button onclick="window.Tareas.viewMode='calendario'; window.navigateTo('tareas');" class="${viewMode === 'calendario' ? 'bg-emerald-500 text-white shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800 font-medium'} px-6 py-2 rounded-md text-xs transition-all">Calendario</button>
+                     <button onclick="window.Tareas.viewMode='lista'; window.navigateTo('tareas');" class="${viewMode === 'lista' ? 'bg-slate-900 text-white shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800 font-medium'} px-6 py-2 rounded-md text-xs transition-all uppercase tracking-widest">Lista</button>
+                     <button onclick="window.Tareas.viewMode='calendario'; window.navigateTo('tareas');" class="${viewMode === 'calendario' ? 'bg-slate-900 text-white shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800 font-medium'} px-6 py-2 rounded-md text-xs transition-all uppercase tracking-widest">Calendario</button>
                  </div>
-                 <button onclick="Tareas.openModal()" class="bg-emerald-500 text-white px-6 py-2.5 rounded-lg text-xs font-bold hover:bg-emerald-600 transition-all shadow-sm flex items-center gap-2">
-                     <i class="fas fa-plus"></i> Nueva Tarea
-                 </button>
-             </div>
+                  <button onclick="Tareas.openModal()" class="bg-emerald-600 text-white px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-200 flex items-center gap-2 border border-white/20">
+                      <i class="fas fa-plus"></i> Añadir Hito
+                  </button>
+                  ${allTasks.length > 0 ? `
+                  <button onclick="Tareas.confirmDeleteAll()" class="bg-white text-red-500 border border-red-200 px-6 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-red-50 transition-all shadow-sm flex items-center gap-2">
+                      <i class="fas fa-trash-alt"></i> Vaciar Todo
+                  </button>
+                  ` : ''}
+              </div>
          </div>
 
          ${viewMode === 'lista' ? `
          <div class="grid grid-cols-1 gap-6">
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden min-h-[500px]">
-                <div class="p-8 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                  <h3 class="font-bold text-slate-800 text-sm">Hitos Activos: ${week === 'todas' ? 'Todas las Semanas' : 'Semana ' + week}</h3>
-                  <span class="px-4 py-1.5 rounded-full border border-slate-200 bg-white text-[10px] font-bold text-slate-500 tracking-wider shadow-sm">${allTasks.filter(t => t.status !== 'Completada').length} Pendientes</span>
+            <div class="bg-white rounded-[2.5rem] border border-slate-200 shadow-xl overflow-hidden min-h-[500px]">
+                <div class="p-10 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                  <h3 class="font-black text-slate-900 text-sm uppercase tracking-tight italic">Hitos Activos: ${week === 'todas' ? 'Todas las Semanas' : 'Semana ' + week}</h3>
+                  <span class="px-5 py-2 rounded-full border border-emerald-100 bg-emerald-50 text-[10px] font-black text-emerald-600 tracking-widest uppercase shadow-sm animate-pulse">${allTasks.filter(t => t.status !== 'Completada').length} Pendientes</span>
                </div>
-               <div class="p-8 space-y-4">
+               <div class="p-10 space-y-4">
                   ${allTasks.map(task => `
-                    <div class="flex items-center justify-between p-5 bg-white rounded-xl border border-slate-200 hover:shadow-md hover:border-emerald-500/30 transition-all cursor-pointer group">
-                        <div class="flex items-center gap-5 flex-1" onclick="window.Tareas.openStatusModal('${task.id}', '${task.status}')">
-                          <div class="w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all ${task.status === 'Completada' ? 'border-emerald-500 bg-emerald-50' : 'border-slate-300 group-hover:border-emerald-400 bg-white'}">
-                             ${task.status === 'Completada' ? '<i class="fas fa-check text-emerald-500 text-xs"></i>' : ''}
+                    <div class="flex items-center justify-between p-6 bg-white rounded-2xl border border-slate-100 hover:shadow-2xl hover:border-emerald-500/30 transition-all cursor-pointer group">
+                        <div class="flex items-center gap-6 flex-1" onclick="window.Tareas.openStatusModal('${task.id}', '${task.status}')">
+                          <div class="w-8 h-8 rounded-xl border-2 flex items-center justify-center transition-all ${task.status === 'Completada' ? 'border-emerald-500 bg-emerald-500 text-white' : 'border-slate-200 group-hover:border-emerald-400 bg-white text-transparent'}">
+                             <i class="fas fa-check text-xs"></i>
                           </div>
                            <div class="flex-1">
-                              <h4 class="text-sm font-black ${task.status === 'Completada' ? 'text-slate-400 line-through decoration-slate-300' : 'text-slate-900'}">${task.t}</h4>
-                              <p class="text-[10px] text-slate-600 font-bold mt-1 uppercase tracking-widest">${task.d} • Responsable: <span class="text-slate-900 font-black">${task.c || 'NO ASIGNADO'}</span> • Deadline: <span class="text-slate-900 font-black">${task.dl || 'S' + task.w}</span></p>
+                              <h4 class="text-sm font-black ${task.status === 'Completada' ? 'text-slate-400 line-through decoration-slate-300' : 'text-slate-900'} uppercase tracking-tight">${task.t}</h4>
+                              <p class="text-[9px] text-slate-500 font-bold mt-1 uppercase tracking-widest">${task.d} • <span class="text-slate-900">${task.c || 'Fernando'}</span> • <span class="text-indigo-600">WA ${task.w}</span></p>
                               ${task.status === 'Atrasada' && task.motive ? `
-                                <div class="mt-3 p-3 bg-red-50 border border-red-100 rounded-xl space-y-2">
-                                   <p class="text-[10px] text-red-700 font-black uppercase tracking-tight">Motivo: <span class="font-bold lowercase">${task.motive}</span></p>
-                                   ${task.nextStep ? `<p class="text-[10px] text-emerald-700 font-black uppercase tracking-tight">Próximo Paso: <span class="font-bold lowercase">${task.nextStep}</span></p>` : ''}
+                                <div class="mt-4 p-4 bg-red-50 border border-red-100 rounded-xl space-y-2">
+                                   <p class="text-[9px] text-red-700 font-black uppercase tracking-tight">Motivo: <span class="font-bold lowercase">${task.motive}</span></p>
+                                   ${task.nextStep ? `<p class="text-[9px] text-emerald-700 font-black uppercase tracking-tight">Estrategia: <span class="font-bold lowercase">${task.nextStep}</span></p>` : ''}
                                 </div>
                               ` : ''}
                            </div>
-                       </div>
-                       <div class="flex items-center gap-3">
-                          <span class="text-[9px] font-bold ${task.p === 'Secundaria' ? 'text-slate-500 bg-slate-100' : 'text-emerald-700 bg-emerald-50 border-emerald-200'} px-3 py-1 rounded-full border tracking-wider">${task.p || 'Principal'}</span>
-                          ${task.linkedContent ? `
-                            <button onclick="Tareas.openPreview('${task.id}')" class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest border border-indigo-100 hover:bg-indigo-600 hover:text-white transition-all">
-                               <i class="fas fa-eye mr-2"></i> Ver Previa
-                            </button>
-                          ` : ''}
-                          ${task.isPlan ? `
-                            <span class="text-[10px] font-bold text-slate-400 ml-2 bg-slate-50 px-2 py-1 rounded-md border border-slate-100"><i class="fas fa-lock text-[8px] mr-1"></i> Fijo</span>
-                          ` : `
-                            <button onclick="window.ZollaStore.deleteTask('${task.id}'); window.navigateTo('tareas');" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all ml-2">
-                               <i class="fas fa-trash-alt text-xs"></i>
-                            </button>
-                          `}
-                       </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                           <span class="text-[8px] font-black ${task.p === 'Secundaria' ? 'text-slate-400 bg-slate-50' : 'text-emerald-700 bg-emerald-50 border-emerald-200'} px-4 py-1.5 rounded-lg border tracking-[0.2em] uppercase">${task.p || 'Directivo'}</span>
+                           ${task.linkedContent ? `
+                             <button onclick="Tareas.openPreview('${task.id}')" class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest border border-indigo-100 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
+                                <i class="fas fa-eye mr-2"></i> Previa
+                             </button>
+                           ` : ''}
+                           <button onclick="${task.isPlan ? `window.ZollaStore.togglePlanTaskVisibility('${task.id}')` : `window.ZollaStore.deleteTask('${task.id}')`}; window.navigateTo('tareas');" 
+                                   class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-red-500 transition-all border border-transparent hover:shadow-xl">
+                              <i class="fas ${task.isPlan ? 'fa-eye-slash' : 'fa-trash-alt'} text-xs"></i>
+                           </button>
+                        </div>
                     </div>
                   `).join('')}
                </div>
             </div>
          </div>
          ` : `
-         <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden min-h-[85vh]">
-             <div class="p-6 border-b border-slate-200 flex justify-between items-center bg-white">
-                 <button class="text-slate-400 hover:text-slate-800 p-2 hover:bg-slate-50 rounded-lg transition-all"><i class="fas fa-chevron-left"></i></button>
+         <div class="bg-white rounded-[3rem] border border-slate-200 shadow-2xl overflow-hidden min-h-[85vh]">
+             <div class="p-8 border-b border-slate-200 flex justify-between items-center bg-white">
+                 <button class="text-slate-400 hover:text-slate-800 p-2 hover:bg-slate-50 rounded-lg transition-all"><i class="fas fa-chevron-left text-xl"></i></button>
                  <div class="text-center">
-                     <span class="font-black text-slate-800 text-lg uppercase tracking-tight">Marzo 2026</span>
-                     <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Vista Mensual Operativa</p>
+                     <span class="font-black text-slate-900 text-2xl uppercase tracking-tighter italic">${monthKey} 2026</span>
+                     <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Sincronizado v46</p>
                  </div>
-                 <button class="text-slate-400 hover:text-slate-800 p-2 hover:bg-slate-50 rounded-lg transition-all"><i class="fas fa-chevron-right"></i></button>
+                 <button class="text-slate-400 hover:text-slate-800 p-2 hover:bg-slate-50 rounded-lg transition-all"><i class="fas fa-chevron-right text-xl"></i></button>
              </div>
              <div class="grid grid-cols-7 border-b border-slate-200 bg-slate-50/50">
-                 ${['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map(d => `<div class="p-4 text-center text-[10px] font-black text-slate-400 uppercase tracking-widest">${d}</div>`).join('')}
+                 ${['D', 'L', 'M', 'M', 'J', 'V', 'S'].map(d => `<div class="p-4 text-center text-[10px] font-black text-slate-400 uppercase tracking-widest">${d}</div>`).join('')}
              </div>
-             <div class="grid grid-cols-7 grid-rows-5 bg-slate-200 gap-[1px] border-b border-slate-200">
+             <div class="grid grid-cols-7 grid-rows-5 bg-slate-100/50 gap-[1px] border-b border-slate-200">
                  ${[...Array(35)].map((_, i) => {
           const dayNum = i + 1; 
           const isToday = dayNum === 2; 
-          if (dayNum > 31) return '<div class="bg-slate-50/50 min-h-[140px] p-2"></div>';
+          if (dayNum > 31) return '<div class="bg-slate-50/20 min-h-[140px] p-2"></div>';
 
           const dayTasks = allTasks.filter(t => {
-             if (t.f && t.f.includes(`-03-${dayNum.toString().padStart(2, '0')}`)) return true;
+             if (t.f) {
+                const monthStr = monthKey === 'marzo' ? '-03-' : (monthKey === 'abril' ? '-04-' : '-XX-');
+                if (t.f.includes(`${monthStr}${dayNum.toString().padStart(2, '0')}`)) {
+                   return true;
+                }
+             }
              if (!t.f) {
                 const w = parseInt(t.w);
                 if (w === 1 && dayNum >= 1 && dayNum <= 7) return (dayNum % 7 === 3); 
@@ -132,15 +169,22 @@ window.Tareas = {
           });
 
           return `
-          <div class="bg-white min-h-[140px] p-3 transition-all hover:bg-emerald-50/20 cursor-pointer flex flex-col ${isToday ? 'ring-2 ring-emerald-500/10 z-10' : ''}">
-             <span class="font-black text-[11px] mb-2 ${isToday ? 'text-emerald-600 bg-emerald-50 w-6 h-6 rounded-lg flex items-center justify-center border border-emerald-100' : 'text-slate-400'}">${dayNum}</span>
-             <div class="space-y-1.5 overflow-y-auto max-h-[100px] scrollbar-hide">
-                ${dayTasks.map(t => `
-                   <div onclick="${t.linkedContent ? `Tareas.openPreview('${t.id}')` : `window.Tareas.openStatusModal('${t.id}', '${t.status}')`}" class="px-2 py-1.5 rounded-lg text-[9px] font-bold border truncate transition-all ${t.status === 'Completada' ? 'bg-slate-50 text-slate-400 border-slate-100 line-through decoration-slate-300' : 'bg-emerald-50 text-emerald-700 border-emerald-100 hover:border-emerald-300 shadow-sm shadow-emerald-700/5'}">
-                      <i class="fas ${t.status === 'Completada' ? 'fa-check-circle' : 'fa-circle-dot'} mr-1 text-[7px] ${t.status === 'Completada' ? 'text-emerald-500' : 'text-emerald-400 animate-pulse'}"></i>
-                      ${t.t}
-                   </div>
-                `).join('')}
+          <div class="bg-white min-h-[160px] p-4 transition-all hover:bg-emerald-50/30 cursor-default flex flex-col border border-transparent hover:border-emerald-100 relative group/cal">
+             <span class="font-black text-[12px] mb-3 self-end ${isToday ? 'text-white bg-emerald-600 w-7 h-7 rounded-xl flex items-center justify-center shadow-lg animate-pulse' : 'text-slate-300'}">${dayNum}</span>
+             <div class="space-y-2 overflow-y-auto max-h-[110px] scrollbar-hide">
+                 ${dayTasks.map(t => `
+                    <div class="flex items-center gap-1 group/item">
+                       <div onclick="${t.isArticle ? `window.navigateTo('cronograma')` : (t.linkedContent ? `Tareas.openPreview('${t.id}')` : `window.Tareas.openStatusModal('${t.id}', '${t.status}')`)}" 
+                            class="flex-grow px-2 py-2 rounded-lg text-[9px] font-bold border truncate transition-all cursor-pointer ${t.status === 'Completada' ? 'bg-slate-50 text-slate-400 border-slate-100 line-through' : (t.isArticle ? 'bg-[#0A66C2]/10 text-[#0A66C2] border-[#0A66C2]/20 hover:border-[#0A66C2] hover:bg-[#0A66C2]/20' : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-500 hover:shadow-lg shadow-sm')}">
+                           <i class="fas ${t.isArticle ? 'fa-calendar-alt text-[#0A66C2]' : (t.status === 'Completada' ? 'fa-check text-emerald-500' : 'fa-circle text-emerald-400 animate-pulse')} mr-1.5 text-[7px]"></i>
+                           ${t.t}
+                        </div>
+                        <button onclick="${t.isPlan ? `window.ZollaStore.togglePlanTaskVisibility('${t.id}')` : `window.ZollaStore.deleteTask('${t.id}')`}; window.navigateTo('tareas');" 
+                                class="w-7 h-7 rounded-lg flex items-center justify-center text-slate-200 hover:text-white hover:bg-red-500 transition-all border border-slate-50 hover:shadow-lg flex-shrink-0">
+                           <i class="fas ${t.isPlan ? 'fa-eye-slash' : 'fa-trash-alt'} text-[8px]"></i>
+                        </button>
+                    </div>
+                 `).join('')}
              </div>
           </div>`;
        }).join('')}
@@ -148,26 +192,26 @@ window.Tareas = {
          </div>
          `}
 
-         <!-- NEW TASK MODAL -->
+         <!-- MODALS -->
          <div id="new-task-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[200] flex items-center justify-center p-8 transition-all">
             <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
                <div class="p-8 border-b border-slate-100 flex items-center justify-between">
-                  <h3 class="text-xl font-black text-slate-800 tracking-tight">NUEVO HITO OPERATIVO</h3>
+                  <h3 class="text-xl font-black text-slate-900 tracking-tight italic">NUEVO HITO DIRECTIVO</h3>
                   <button onclick="Tareas.closeModal()" class="text-slate-400 hover:text-slate-800"><i class="fas fa-times text-xl"></i></button>
                </div>
-               <div class="p-8 space-y-6">
+               <div class="p-10 space-y-6">
                   <div>
-                     <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-2 px-1">Título de Tarea</label>
-                     <input type="text" id="task-title" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-bold text-sm text-slate-800" placeholder="Ej: Llamar a clientes potenciales">
+                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block mb-3 px-1">Título de Tarea</label>
+                     <input type="text" id="task-title" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-bold text-sm text-slate-800 outline-none focus:border-emerald-500 transition-all" placeholder="Ej: Llamar a clientes prioritarios B2B">
                   </div>
-                  <div class="grid grid-cols-2 gap-6">
+                  <div class="grid grid-cols-2 gap-8">
                      <div>
-                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-2 px-1">Concepto</label>
-                        <input type="text" id="task-dept" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-bold text-sm text-slate-800" value="Fernando">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block mb-3 px-1">Concepto</label>
+                        <input type="text" id="task-dept" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-bold text-sm text-slate-800" value="Fernando">
                      </div>
                      <div>
-                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-2 px-1">Semana</label>
-                        <select id="task-week" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-bold text-sm">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] block mb-3 px-1">SemanaWA</label>
+                        <select id="task-week" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 font-bold text-sm outline-none">
                            <option value="1">Semana 1</option>
                            <option value="2">Semana 2</option>
                            <option value="3">Semana 3</option>
@@ -176,76 +220,42 @@ window.Tareas = {
                      </div>
                   </div>
                </div>
-               <div class="p-8 border-t border-slate-100 flex gap-4 bg-slate-50/50">
-                  <button onclick="Tareas.closeModal()" class="px-8 py-3.5 rounded-2xl text-[10px] font-black text-slate-500 bg-white border border-slate-200 uppercase tracking-widest w-1/3">Cancelar</button>
-                  <button onclick="Tareas.createTask()" class="bg-emerald-600 text-white px-8 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-emerald-200 flex-1">Crear Tarea</button>
+               <div class="p-10 border-t border-slate-100 flex gap-4 bg-slate-50/50">
+                  <button onclick="Tareas.closeModal()" class="px-10 py-5 rounded-2xl text-[10px] font-black text-slate-400 bg-white border border-slate-200 uppercase tracking-widest w-1/3">Cancelar</button>
+                  <button onclick="Tareas.createTask()" class="bg-emerald-600 text-white px-10 py-5 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-emerald-200 flex-1 hover:bg-emerald-700">Crear Hito</button>
                </div>
             </div>
          </div>
 
-         <!-- STATUS MODAL -->
+         <!-- Status Modal -->
          <div id="task-status-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[210] flex items-center justify-center p-8 transition-all">
-            <div class="bg-white w-full max-w-lg rounded-3xl shadow-3xl border border-slate-200">
-               <div class="p-8 border-b border-slate-100">
-                  <h3 class="text-xl font-black text-slate-800 tracking-tight">ESTADO DEL HITO</h3>
+            <div class="bg-white w-full max-w-lg rounded-3xl shadow-3xl border border-slate-100">
+               <div class="p-10 border-b border-slate-100">
+                  <h3 class="text-xl font-black text-slate-800 italic">ESTADO DEL HITO</h3>
                </div>
-               <div class="p-8 space-y-6">
+               <div class="p-10 space-y-8">
                   <div>
-                     <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-2 px-1">Nuevo Estado</label>
-                     <select id="task-new-status" onchange="Tareas.handleStatusUI(this.value)" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-bold text-sm">
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="Completada">Completada</option>
-                        <option value="Atrasada">No Completada</option>
+                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 block italic">Acción Correctiva o Cierre</label>
+                     <select id="task-new-status" onchange="Tareas.handleStatusUI(this.value)" class="w-full bg-slate-900 text-white rounded-2xl px-6 py-5 font-bold text-xs uppercase tracking-widest shadow-xl outline-none">
+                        <option value="Pendiente">PENDIENTE</option>
+                        <option value="Completada">COMPLETADA ✅</option>
+                        <option value="Atrasada">NO COMPLETADA ⚠️</option>
                      </select>
                   </div>
-                  <div id="failure-fields" class="hidden space-y-6">
+                  <div id="failure-fields" class="hidden space-y-6 animate-fade-in">
                     <div>
-                       <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-2 px-1">Motivo</label>
-                       <textarea id="task-motive" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-bold text-sm text-slate-800" placeholder="¿Por qué no se completó?"></textarea>
+                       <label class="text-[10px] font-black text-red-400 uppercase tracking-widest block mb-1">Motivo de Desviación</label>
+                       <textarea id="task-motive" rows="3" class="w-full bg-red-50 border border-red-100 rounded-2xl px-6 py-4 font-bold text-xs text-red-900 outline-none" placeholder="Escribe el obstáculo..."></textarea>
                     </div>
                     <div>
-                       <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block mb-2 px-1">Próximo Paso</label>
-                       <input type="text" id="task-next-step" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-bold text-sm text-slate-800" placeholder="¿Cómo lo resolvemos?">
+                       <label class="text-[10px] font-black text-emerald-500 uppercase tracking-widest block mb-1">Próximo Paso Estratégico</label>
+                       <input type="text" id="task-next-step" class="w-full bg-emerald-50 border border-emerald-100 rounded-2xl px-6 py-4 font-bold text-xs text-emerald-900 outline-none" placeholder="¿Cómo lo resolvemos?">
                     </div>
                   </div>
                </div>
-               <div class="p-8 border-t border-slate-100 flex gap-4 bg-slate-50/50">
-                  <button onclick="Tareas.closeStatusModal()" class="px-8 py-3.5 rounded-2xl text-[10px] font-black text-slate-500 bg-white border border-slate-200 flex-1 uppercase tracking-widest">Cerrar</button>
-                  <button onclick="Tareas.updateTaskStatus()" class="bg-indigo-600 text-white px-8 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest flex-1">Actualizar</button>
-               </div>
-            </div>
-         </div>
-
-         <!-- PREVIEW MODAL (VISTA PREVIA DE PUBLICACIÓN) -->
-         <div id="content-preview-modal" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-xl z-[300] flex items-center justify-center p-8 transition-all">
-            <div class="bg-white w-full max-w-4xl rounded-[3rem] shadow-4xl border border-white/20 animate-pop-in flex flex-col max-h-[90vh]">
-               <div class="p-10 border-b border-slate-100 flex items-center justify-between">
-                  <div class="flex items-center gap-4">
-                     <div id="preview-icon-platform" class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-xl">
-                        <i class="fab fa-linkedin-in"></i>
-                     </div>
-                     <div>
-                        <h3 class="text-2xl font-black text-slate-800 tracking-tight">Vista Previa Estratégica</h3>
-                        <p id="preview-platform-text" class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Simulación de publicación</p>
-                     </div>
-                  </div>
-                  <button onclick="document.getElementById('content-preview-modal').classList.add('hidden')" class="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-all">
-                     <i class="fas fa-times text-xl"></i>
-                  </button>
-               </div>
-               <div id="preview-body" class="p-10 overflow-y-auto bg-slate-50/30 flex-grow">
-                  <div class="max-w-xl mx-auto bg-white rounded-3xl shadow-lg border border-slate-200 p-10">
-                     <div id="preview-content-render" class="whitespace-pre-wrap font-serif text-lg leading-relaxed text-slate-700 italic border-l-4 border-indigo-500 pl-8">
-                        <!-- Content here -->
-                     </div>
-                  </div>
-               </div>
-               <div class="p-10 border-t border-slate-100 bg-white flex justify-between items-center">
-                  <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">¿Todo listo para enviar?</p>
-                  <div class="flex gap-4">
-                     <button onclick="document.getElementById('content-preview-modal').classList.add('hidden')" class="px-10 py-4 rounded-2xl text-[10px] font-black text-slate-500 bg-slate-100 hover:bg-slate-200 transition-all uppercase tracking-widest">Ajustar Tarea</button>
-                     <button onclick="Tareas.publishNow()" class="bg-emerald-600 text-white px-12 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-emerald-200 hover:bg-emerald-500 transition-all">Publicar Ahora</button>
-                  </div>
+               <div class="p-10 border-t border-slate-100 flex gap-4 bg-slate-50/50">
+                  <button onclick="Tareas.closeStatusModal()" class="px-8 py-5 rounded-2xl text-[10px] font-black text-slate-500 bg-white border border-slate-200 flex-1 uppercase tracking-widest">Cerrar</button>
+                  <button onclick="Tareas.updateTaskStatus()" class="bg-slate-900 text-white px-8 py-5 rounded-2xl font-black text-[10px] uppercase tracking-widest flex-1 shadow-2xl">ACEPTAR CAMBIOS</button>
                </div>
             </div>
          </div>
@@ -265,69 +275,6 @@ window.Tareas = {
       document.getElementById('new-task-modal')?.classList.add('hidden');
    },
 
-   openPreview: (id) => {
-      const task = window.ZollaStore.state.tasks.find(tk => tk.id == id);
-      if (!task || !task.linkedContent) return;
-
-      window.activeTaskId = id;
-      const modal = document.getElementById('content-preview-modal');
-      const render = document.getElementById('preview-content-render');
-      const icon = document.getElementById('preview-icon-platform');
-      const text = document.getElementById('preview-platform-text');
-
-      render.innerText = task.linkedContent;
-      
-      if (task.t.toLowerCase().includes('linkedin')) {
-         icon.innerHTML = '<i class="fab fa-linkedin-in"></i>';
-         icon.className = 'w-12 h-12 rounded-2xl bg-[#0A66C2] text-white flex items-center justify-center text-xl';
-         text.innerText = 'Simulación LinkedIn Premium';
-      } else {
-         icon.innerHTML = '<i class="fas fa-globe"></i>';
-         icon.className = 'w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl';
-         text.innerText = 'Vista Previa Blog / Web';
-      }
-
-      modal.classList.remove('hidden');
-   },
-
-   publishNow: () => {
-      const id = window.activeTaskId;
-      const task = window.ZollaStore.state.tasks.find(tk => tk.id == id);
-      
-      if (task) {
-         // 1. Copiar al portapapeles
-         navigator.clipboard.writeText(task.linkedContent).then(() => {
-            // 2. Marcar como completada
-            window.ZollaStore.updateTask(id, { status: 'Completada' });
-            
-            // 3. Notificar y cerrar
-            window.showNotification("Publicación Exitosa", "Contenido copiado al portapapeles y hito marcado como completado.", "success");
-            document.getElementById('content-preview-modal').classList.add('hidden');
-            window.navigateTo('tareas');
-         });
-      }
-   },
-
-   createTask: () => {
-      const titleEl = document.getElementById('task-title');
-      const t = titleEl?.value?.trim();
-      const d = document.getElementById('task-dept')?.value?.trim() || 'Fernando';
-      const w = document.getElementById('task-week')?.value || '1';
-      if (!t) {
-         if (titleEl) {
-            titleEl.style.borderColor = '#ef4444';
-            titleEl.placeholder = '⚠️ Ingresa el título de la tarea';
-            setTimeout(() => { titleEl.style.borderColor = ''; titleEl.placeholder = 'Ej: Llamar a clientes potenciales'; }, 3000);
-         }
-         window.showNotification('Campo requerido', 'Por favor ingresa un título para la tarea.', 'warning');
-         return;
-      }
-      window.ZollaStore.addTask({ t, d, w, p: 'Principal', status: 'Pendiente' });
-      Tareas.closeModal();
-      window.navigateTo('tareas');
-      window.showNotification('Tarea Creada', `"${t}" ha sido agregada al planificador.`, 'success');
-   },
-
    openStatusModal: (id, currentStatus) => {
       window.activeTaskId = id;
       const modal = document.getElementById('task-status-modal');
@@ -336,6 +283,8 @@ window.Tareas = {
          statusSelect.value = currentStatus;
          
          const task = window.ZollaStore.state.tasks.find(tk => tk.id == id);
+         const planTask = !task && id.startsWith('p-');
+         
          document.getElementById('task-motive').value = task?.motive || '';
          document.getElementById('task-next-step').value = task?.nextStep || '';
 
@@ -377,6 +326,24 @@ window.Tareas = {
 
       Tareas.closeStatusModal();
       window.navigateTo('tareas');
+   },
+
+   createTask: () => {
+      const t = document.getElementById('task-title')?.value?.trim();
+      const d = document.getElementById('task-dept')?.value?.trim() || 'Fernando';
+      const w = document.getElementById('task-week')?.value || '1';
+      if (!t) return window.showNotification('Campo requerido', 'Ingresa un título.', 'warning');
+      window.ZollaStore.addTask({ t, d, w, p: 'Principal', status: 'Pendiente' });
+      Tareas.closeModal();
+      window.navigateTo('tareas');
+      window.showNotification('Éxito', 'Hito añadido.', 'success');
+   },
+
+   confirmDeleteAll: () => {
+      if (confirm('¿Vaciar planificador completo?')) {
+         window.ZollaStore.deleteAllTasks();
+         window.navigateTo('tareas');
+      }
    },
 
    init: () => { }
