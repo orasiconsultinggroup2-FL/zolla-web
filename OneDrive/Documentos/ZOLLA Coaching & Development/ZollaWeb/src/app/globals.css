@@ -32,3 +32,18 @@ body {
   opacity: 0.03;
   pointer-events: none;
 }
+
+/* Fix for bold text in articles */
+strong, b {
+  font-weight: 800 !important;
+  color: #1a1a1a; /* Slate 900 equivalent */
+}
+
+h3 strong, h2 strong, h1 strong {
+  font-weight: 900 !important;
+}
+
+.prose-zolla strong {
+  color: #000;
+  display: inline-block; /* Helps some fonts render bold better */
+}

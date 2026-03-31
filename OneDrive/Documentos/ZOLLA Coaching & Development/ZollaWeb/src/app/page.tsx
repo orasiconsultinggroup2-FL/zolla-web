@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     ChevronRight,
@@ -12,8 +13,11 @@ import {
     Users,
     Zap,
     Trophy,
-    Share2
+    Share2,
+    Clock
 } from "lucide-react";
+
+import { BLOG_POSTS } from "@/data/blogPosts";
 
 // --- TYPES ---
 interface Service {
@@ -41,32 +45,35 @@ interface ClientCase {
     case: string;
 }
 
+// Las interfaces ahora vienen desde el archivo de datos o se mantienen simples aquí
+// para la estructura visual.
+
 // --- DATA ---
 const SERVICES: Service[] = [
     {
-        title: "Vocería corporativa",
-        desc: "Preparamos voceros para entornos sensibles, regulatorios y de exposición pública.",
-        longDesc: "Diagnóstico, simulación, retroalimentación y entrenamiento aplicado para gerencias, dirección y asuntos corporativos.",
+        title: "Vocería Corporativa bajo presión",
+        desc: "Prepara a tus directivos , gerentes y jefes de linea para responder en entornos sensibles, regulatorios y de alta exposición pública.",
+        longDesc: "Diagnóstico, simulación, entrenamiento y retroalimentación aplicadas para manejo de crisis a gerencias, dirección y asuntos corporativos.",
         icon: <MessageSquare className="w-6 h-6" />,
         duration: "2 a 6 semanas"
     },
     {
-        title: "Liderazgo y cambio",
-        desc: "Fortalecemos capacidades de conducción, alineamiento y ejecución en procesos de transformación.",
-        longDesc: "Diagnóstico, talleres, coaching y acompañamiento para equipos directivos, jefaturas y organizaciones en transición.",
+        title: "Liderazgo en entornos de alta exigencia",
+        desc: "Fortalece a tus líderes para tomar decisiones difíciles, mantener equipos cohesionados y conducir el cambio cuando más se necesita.",
+        longDesc: "Diagnóstico, talleres, coaching y acompañamiento para equipos directivos, gerentes, jefaturas y organizaciones en transición.",
         icon: <Zap className="w-6 h-6" />,
         duration: "4 a 10 semanas"
     },
     {
-        title: "Negociación / Diálogo multiactor",
-        desc: "Acompañamos conversaciones complejas entre actores con intereses distintos para construir acuerdos sostenibles.",
-        longDesc: "Mapeo, diseño de proceso y facilitación en contextos complejos.",
+        title: "Negociación estratégica de alto valor",
+        desc: "Protege lo que has construido. Negocia con inteligencia cuando los márgenes se estrechan y los acuerdos se renegocian.",
+        longDesc: "Mapeo de intereses, diseño e implementacion del proceso de negociacion.",
         icon: <Users className="w-6 h-6" />,
         duration: "Según complejidad"
     },
     {
         title: "Innovación & Tecnología",
-        desc: "Ideamos y desarrollamos aplicaciones de ingeniería digital a la medida para optimizar decisiones.",
+        desc: "Construimos soluciones de ingeniería digital hechas a tu medida para mejorar la predictibilidad y guiar decisiones con claridad.",
         longDesc: "Levantamiento funcional, diseño y prototipado ágil para transformar datos en decisiones reales.",
         icon: <Trophy className="w-6 h-6" />,
         duration: "Variable"
@@ -77,7 +84,7 @@ const TEAM: TeamMember[] = [
     {
         name: "Juan Ramón Zolla",
         role: "Business Partner",
-        bio: "Especialista en gestión de procesos de comunicación, desarrollo y cambio organizacional.",
+        bio: "Media trainer, coach ejecutivo. Especialista en comunicación y cambio organizacional",
         image: "/images/equipo_v2/juan_zolla.png"
     },
     {
@@ -195,7 +202,7 @@ function Navbar() {
                 </div>
 
                 <nav className="hidden md:flex items-center space-x-10 text-[10px] font-bold uppercase tracking-[0.2em]">
-                    {["Nosotros", "Servicios", "Equipo", "Clientes", "Contacto"].map((item) => (
+                    {["Nosotros", "Servicios", "Equipo", "Clientes", "Blog", "Contacto"].map((item) => (
                         <a
                             key={item}
                             href={`#${item.toLowerCase()}`}
@@ -231,7 +238,7 @@ function Navbar() {
                         className="absolute top-20 left-4 right-4 bg-white rounded-2xl shadow-2xl p-6 md:hidden border border-slate-100"
                     >
                         <nav className="flex flex-col space-y-4 text-center">
-                            {["Nosotros", "Servicios", "Equipo", "Clientes", "Contacto"].map((item) => (
+                            {["Nosotros", "Servicios", "Equipo", "Clientes", "Blog", "Contacto"].map((item) => (
                                 <a
                                     key={item}
                                     href={`#${item.toLowerCase()}`}
@@ -412,7 +419,148 @@ function ClientsCarousel() {
     );
 }
 
+function BlogSection() {
+    const [dynamicPosts, setDynamicPosts] = useState<any[]>([]);
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const fetchPosts = async () => {
+        try {
+            const res = await fetch('/api/sync-blog');
+            const data = await res.json();
+            if (data.posts) {
+                // Marcamos los posts dinámicos y aseguramos que tengan un slug funcional
+                const identifiedPosts = data.posts.map((p: any) => {
+                    const slug = p.slug || p.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '-').replace(/[^\w-]/g, '');
+                    return { ...p, slug, isDynamic: true };
+                });
+                setDynamicPosts(identifiedPosts);
+            }
+        } catch (err) {
+            console.error("Fallo al cargar blogs dinámicos:", err);
+        }
+    };
+
+    const handleDelete = async (slug: string, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (!window.confirm("¿Seguro que quieres eliminar este artículo permanentemente de la web?")) return;
+
+        try {
+            const res = await fetch('/api/sync-blog', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ slug })
+            });
+            const data = await res.json();
+            if (data.success) {
+                // Actualizar localmente inmediatamente
+                setDynamicPosts(dynamicPosts.filter(p => (p.slug || p.title.toLowerCase().replace(/ /g, '-')) !== slug));
+                alert("Artículo eliminado con éxito.");
+            } else {
+                alert("Error al eliminar: " + data.error);
+            }
+        } catch (err) {
+            console.error("Error al eliminar post:", err);
+            alert("Error de conexión al intentar eliminar.");
+        }
+    };
+
+    const allPosts = [...dynamicPosts, ...BLOG_POSTS];
+
+    return (
+        <section id="blog" className="py-32 bg-zolla-soft">
+            <div className="max-w-7xl mx-auto px-6">
+                <SectionLead
+                    title="Pensamiento Estratégico"
+                    text="Reflexiones y herramientas sobre liderazgo, negociación y cambio."
+                />
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                    {allPosts.map((post, i) => (
+                        <motion.article
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col h-full border border-zolla-border"
+                        >
+                            <div className="aspect-[16/9] overflow-hidden relative">
+                                <img
+                                    src={post.image || post.selectedImage}
+                                    alt={post.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute top-4 right-4 z-10">
+                                    {post.isDynamic && post.slug && (
+                                        <button 
+                                            onClick={(e) => handleDelete(post.slug, e)}
+                                            className="p-2 bg-red-500/80 backdrop-blur-md text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 active:scale-95"
+                                            title="Eliminar de la Web"
+                                        >
+                                            <X className="w-3.5 h-3.5" />
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="absolute top-4 left-4">
+                                    <span className="px-4 py-1.5 bg-white/90 backdrop-blur-md text-zolla-primary text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
+                                        {post.category || post.theme}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="p-8 flex flex-col flex-grow">
+                                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-4">
+                                    {post.date}
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-zolla-primary transition-colors leading-tight">
+                                    {post.title}
+                                </h3>
+                                <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow line-clamp-3">
+                                    {post.excerpt || post.content?.substring(0, 120) + "..."}
+                                </p>
+                                <Link href={`/blog/${post.slug}`} className="pt-6 border-t border-slate-50 flex items-center justify-between group/link cursor-pointer">
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zolla-primary">Leer más</span>
+                                    <div className="w-8 h-8 rounded-full bg-zolla-soft flex items-center justify-center text-zolla-primary group-hover/link:bg-zolla-primary group-hover/link:text-white transition-all">
+                                        <ChevronRight className="w-4 h-4" />
+                                    </div>
+                                </Link>
+                            </div>
+                        </motion.article>
+                    ))}
+                </div>
+
+                <div className="mt-20 text-center">
+                    <Link href="#blog" className="inline-block px-10 py-4 border-2 border-zolla-primary text-zolla-primary font-bold hover:bg-zolla-primary hover:text-white transition-all">
+                        VER TODOS LOS ARTÍCULOS
+                    </Link>
+                </div>
+            </div>
+        </section>
+    );
+}
+
 export default function Home() {
+    const [selectedService, setSelectedService] = useState<Service | null>(null);
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [chatStep, setChatStep] = useState<"menu" | "form" | "success">("menu");
+    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        // Simulamos envío
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setChatStep("success");
+            setFormData({ name: "", email: "", message: "" });
+        }, 1500);
+    };
+
     return (
         <main className="relative overflow-x-hidden bg-white selection:bg-zolla-primary/10 selection:text-zolla-primary">
             <div className="noise fixed inset-0 z-[100] opacity-[0.03] pointer-events-none" />
@@ -424,20 +572,221 @@ export default function Home() {
             />
             <Navbar />
 
-            {/* --- WHATSAPP FLOAT --- */}
-            <motion.a
-                href="https://wa.me/51987654321" // Replace with actual number if known
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="fixed bottom-8 right-8 z-[100] p-4 bg-[#25D366] text-white rounded-full shadow-2xl hover:scale-110 transition-transform active:scale-95 group"
-            >
-                <MessageSquare className="w-6 h-6" />
-                <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-4 py-2 bg-white text-slate-900 text-xs font-bold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100">
-                    ¿En qué podemos ayudarte?
-                </span>
-            </motion.a>
+            {/* --- CHATBOX --- */}
+            <div className="fixed bottom-8 right-8 z-[150] flex flex-col items-end">
+                <AnimatePresence>
+                    {isChatOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: "bottom right" }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                            className="mb-6 w-[350px] md:w-[400px] bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden flex flex-col"
+                        >
+                            {/* Chat Header */}
+                            <div className="bg-zolla-dark p-6 text-white flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-zolla-primary/20 flex items-center justify-center text-zolla-primary">
+                                        <Zap className="w-5 h-5 fill-current" />
+                                    </div>
+                                    <div>
+                                        <div className="text-sm font-black uppercase tracking-widest">ZOLLA Assistant</div>
+                                        <div className="text-[10px] text-white/40 font-bold uppercase tracking-[0.2em] flex items-center gap-1.5">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                            En línea ahora
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        setIsChatOpen(false);
+                                        setTimeout(() => setChatStep("menu"), 500);
+                                    }}
+                                    className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            {/* Chat Content */}
+                            <div className="p-8 h-[400px] overflow-y-auto bg-slate-50/50">
+                                <AnimatePresence mode="wait">
+                                    {chatStep === "menu" ? (
+                                        <motion.div
+                                            key="menu"
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 20 }}
+                                            className="space-y-6"
+                                        >
+                                            <div className="flex gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-zolla-soft flex items-center justify-center text-zolla-primary shrink-0">
+                                                    <MessageSquare className="w-4 h-4" />
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <div className="p-4 bg-white rounded-2xl rounded-tl-none shadow-sm text-sm text-slate-600 leading-relaxed border border-slate-100">
+                                                        ¡Hola! Bienvenidos a <strong>ZOLLA</strong>. ¿Cómo podemos ayudarte hoy?
+                                                    </div>
+                                                    <div className="p-4 bg-white rounded-2xl rounded-tl-none shadow-sm text-sm text-slate-600 leading-relaxed border border-slate-100">
+                                                        Soy tu asistente virtual, puedo darte recomendaciones sobre nuestros servicios o ponerte en contacto directo con nuestro equipo.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-3 pt-4">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 text-center mb-4">Selecciona una opción</p>
+                                                <button
+                                                    onClick={() => setChatStep("form")}
+                                                    className="w-full p-4 bg-white border border-slate-200 rounded-2xl text-left hover:border-zolla-primary hover:bg-zolla-soft/30 transition-all group flex items-center justify-between shadow-sm"
+                                                >
+                                                    <span className="text-sm font-bold text-slate-700">Contactar con un experto</span>
+                                                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-zolla-primary group-hover:translate-x-1 transition-all" />
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setIsChatOpen(false);
+                                                        window.location.href = "#servicios";
+                                                    }}
+                                                    className="w-full p-4 bg-white border border-slate-200 rounded-2xl text-left hover:border-zolla-primary hover:bg-zolla-soft/30 transition-all group flex items-center justify-between shadow-sm"
+                                                >
+                                                    <span className="text-sm font-bold text-slate-700">Recomendación de servicios</span>
+                                                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-zolla-primary group-hover:translate-x-1 transition-all" />
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setIsChatOpen(false);
+                                                        window.location.href = "#blog";
+                                                    }}
+                                                    className="w-full p-4 bg-white border border-slate-200 rounded-2xl text-left hover:border-zolla-primary hover:bg-zolla-soft/30 transition-all group flex items-center justify-between shadow-sm"
+                                                >
+                                                    <span className="text-sm font-bold text-slate-700">Explorar nuestro pensamiento</span>
+                                                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-zolla-primary group-hover:translate-x-1 transition-all" />
+                                                </button>
+                                            </div>
+                                        </motion.div>
+                                    ) : chatStep === "form" ? (
+                                        <motion.div
+                                            key="form"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            className="space-y-6"
+                                        >
+                                            <button
+                                                onClick={() => setChatStep("menu")}
+                                                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-zolla-primary transition-colors mb-4"
+                                            >
+                                                <ChevronRight className="w-3 h-3 rotate-180" />
+                                                Volver al menú
+                                            </button>
+
+                                            <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
+                                                <h4 className="text-sm font-bold text-slate-900">Cuéntanos tu necesidad</h4>
+                                                <form onSubmit={handleFormSubmit} className="space-y-4">
+                                                    <div>
+                                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1.5 block">Nombre Completo</label>
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            placeholder="Ej. Juan Pérez"
+                                                            value={formData.name}
+                                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                            className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-zolla-primary/30 transition-colors"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1.5 block">Correo Corporativo</label>
+                                                        <input
+                                                            required
+                                                            type="email"
+                                                            placeholder="juan@empresa.com"
+                                                            value={formData.email}
+                                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                            className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-zolla-primary/30 transition-colors"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1.5 block">Mensaje</label>
+                                                        <textarea
+                                                            required
+                                                            rows={3}
+                                                            placeholder="¿En qué podemos ayudarte?"
+                                                            value={formData.message}
+                                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                                            className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-zolla-primary/30 transition-colors resize-none"
+                                                        />
+                                                    </div>
+                                                    <button
+                                                        disabled={isSubmitting}
+                                                        type="submit"
+                                                        className="w-full py-4 bg-zolla-primary text-white font-bold rounded-xl hover:bg-red-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    >
+                                                        {isSubmitting ? (
+                                                            <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                        ) : (
+                                                            <>
+                                                                Enviar Mensaje
+                                                                <ArrowUpRight className="w-4 h-4" />
+                                                            </>
+                                                        )}
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="success"
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            className="h-full flex flex-col items-center justify-center text-center space-y-6"
+                                        >
+                                            <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center scale-110">
+                                                <Zap className="w-10 h-10 fill-current" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <h4 className="text-xl font-bold text-slate-900">¡Mensaje Recibido!</h4>
+                                                <p className="text-sm text-slate-500 leading-relaxed">
+                                                    Gracias <strong>{formData.name || "por escribirnos"}</strong>. <br />
+                                                    Un experto de nuestro equipo se pondrá en contacto contigo muy pronto.
+                                                </p>
+                                            </div>
+                                            <button
+                                                onClick={() => setChatStep("menu")}
+                                                className="px-8 py-3 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-zolla-primary transition-colors"
+                                            >
+                                                Cerrar Chat
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Chat Footer */}
+                            <div className="p-4 bg-white border-t border-slate-100 flex items-center gap-3">
+                                <div className="flex-grow p-3 bg-slate-50 rounded-xl text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center italic">
+                                    Asistente de Estrategia Zolla
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                <motion.button
+                    onClick={() => setIsChatOpen(!isChatOpen)}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={`p-5 rounded-full shadow-2xl transition-all duration-500 flex items-center gap-3 group relative ${isChatOpen ? "bg-zolla-dark text-white rotate-90" : "bg-zolla-primary text-white"}`}
+                >
+                    {isChatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+
+                    {!isChatOpen && (
+                        <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-4 py-2 bg-white text-slate-900 text-[10px] font-black uppercase tracking-widest rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100 pointer-events-none">
+                            ¿Hablamos?
+                        </span>
+                    )}
+                </motion.button>
+            </div>
 
             {/* --- HERO SECTION --- */}
             <section id="inicio" className="relative h-screen min-h-[700px] flex items-center justify-center bg-zolla-dark bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80')] bg-cover bg-center">
@@ -525,6 +874,7 @@ export default function Home() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
+                                onClick={() => setSelectedService(service)}
                                 className="group p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all cursor-pointer h-full flex flex-col"
                             >
                                 <div className="w-12 h-12 rounded-2xl bg-zolla-primary/20 flex items-center justify-center text-zolla-primary mb-6 group-hover:scale-110 transition-transform">
@@ -605,13 +955,16 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* --- BLOG --- */}
+            <BlogSection />
+
             {/* --- CONTACTO --- */}
             <section id="contacto" className="py-32 bg-zolla-dark text-white">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="font-serif text-5xl italic mb-8">¿Listo para transformar tu organización?</h2>
                     <p className="text-xl text-white/60 mb-12">Conversemos sobre cómo podemos ayudarte.</p>
                     <div className="flex justify-center gap-6">
-                        <a href="mailto:hola@zolla.com.pe" className="px-10 py-5 bg-zolla-primary text-white font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2">
+                        <a href="mailto:fernando@zolla.com.pe" className="px-10 py-5 bg-zolla-primary text-white font-bold rounded-full hover:scale-105 transition-all flex items-center gap-2">
                             Contáctanos <ArrowUpRight className="w-5 h-5" />
                         </a>
                         <a href="https://www.linkedin.com/company/zolla-coaching-development/" target="_blank" rel="noopener noreferrer" className="p-5 border border-white/10 rounded-full hover:bg-white/5 transition-colors">
@@ -634,6 +987,75 @@ export default function Home() {
                     </button>
                 </div>
             </footer>
+
+            {/* --- SERVICE MODAL --- */}
+            <AnimatePresence>
+                {selectedService && (
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 overflow-y-auto py-10">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedService(null)}
+                            className="fixed inset-0 bg-zolla-dark/90 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="bg-white rounded-[32px] w-full max-w-2xl relative z-10 overflow-hidden shadow-2xl"
+                        >
+                            <div className="p-8 md:p-12">
+                                <button
+                                    onClick={() => setSelectedService(null)}
+                                    className="absolute top-8 right-8 p-2 rounded-full bg-slate-100 text-slate-500 hover:bg-zolla-primary hover:text-white transition-all shadow-sm"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+
+                                <div className="w-16 h-16 rounded-2xl bg-zolla-soft flex items-center justify-center text-zolla-primary mb-8">
+                                    {selectedService.icon}
+                                </div>
+
+                                <span className="inline-block text-[10px] font-black tracking-[0.3em] text-zolla-primary uppercase mb-4">
+                                    Detalle del Servicio
+                                </span>
+
+                                <h3 className="font-serif text-4xl md:text-5xl italic text-slate-900 mb-8 leading-tight">
+                                    {selectedService.title}
+                                </h3>
+
+                                <div className="space-y-6">
+                                    <p className="text-xl text-slate-600 leading-relaxed italic border-l-4 border-zolla-primary pl-6">
+                                        {selectedService.desc}
+                                    </p>
+
+                                    <div className="pt-6">
+                                        <h4 className="text-sm font-black uppercase tracking-widest text-slate-900 mb-4">Lo que hacemos:</h4>
+                                        <p className="text-slate-500 leading-relaxed text-lg">
+                                            {selectedService.longDesc}
+                                        </p>
+                                    </div>
+
+                                    <div className="pt-10 flex flex-col sm:flex-row items-center gap-6">
+                                        <a
+                                            href={`mailto:fernando@zolla.com.pe?subject=Información sobre el servicio: ${selectedService.title}`}
+                                            onClick={() => setSelectedService(null)}
+                                            className="w-full sm:w-auto px-10 py-5 bg-zolla-primary text-white font-bold rounded-full hover:scale-105 transition-all text-center"
+                                        >
+                                            SOLICITAR INFORMACIÓN
+                                        </a>
+                                        <div className="flex items-center gap-3 text-slate-400 text-xs font-bold uppercase tracking-widest">
+                                            <Clock className="w-4 h-4" />
+                                            Duración: {selectedService.duration}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </main>
     );
 }
