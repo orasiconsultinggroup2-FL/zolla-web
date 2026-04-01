@@ -164,8 +164,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             {/* Header / Nav */}
             <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <Link href="/" className="text-zolla-primary font-bold text-xl tracking-tighter">
-                        ZOLLA
+                    <Link href="/" className="flex items-center">
+                        <img src="/images/logo.png" alt="ZOLLA Logo" className="h-10 w-auto" />
                     </Link>
                     <Link href="/#blog" className="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-zolla-primary transition-colors">
                         <ArrowLeft className="w-4 h-4" />
@@ -275,8 +275,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             </section>
 
             {/* Footer Placeholder (since we are on a separate page) */}
-            <footer className="py-12 bg-white border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center">
+            <footer className="py-16 bg-white border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4 text-center">
+                    <img src="/images/logo.png" alt="ZOLLA Logo" className="h-10 w-auto" />
                     <p className="text-slate-400 text-sm">© 2026 Zolla Coaching & Development.</p>
                 </div>
             </footer>

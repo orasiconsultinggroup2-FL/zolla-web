@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import { BLOG_POSTS } from "@/data/blogPosts";
+import HuellaSection from "@/components/HuellaSection";
 
 // --- TYPES ---
 interface Service {
@@ -202,11 +203,11 @@ function Navbar() {
                 </div>
 
                 <nav className="hidden md:flex items-center space-x-10 text-[10px] font-bold uppercase tracking-[0.2em]">
-                    {["Nosotros", "Servicios", "Equipo", "Clientes", "Blog", "Contacto"].map((item) => (
+                    {["Nosotros", "Servicios", "HUELLA", "Equipo", "Clientes", "Blog", "Contacto"].map((item) => (
                         <a
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            className={`relative group overflow-hidden transition-colors ${scrolled ? "text-slate-600 hover:text-zolla-primary" : "text-white/80 hover:text-white"}`}
+                            className={`relative group overflow-hidden transition-colors ${item === 'HUELLA' ? 'text-zolla-primary' : (scrolled ? "text-slate-600 hover:text-zolla-primary" : "text-white/80 hover:text-white")}`}
                         >
                             {item}
                             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-current transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
@@ -238,11 +239,11 @@ function Navbar() {
                         className="absolute top-20 left-4 right-4 bg-white rounded-2xl shadow-2xl p-6 md:hidden border border-slate-100"
                     >
                         <nav className="flex flex-col space-y-4 text-center">
-                            {["Nosotros", "Servicios", "Equipo", "Clientes", "Blog", "Contacto"].map((item) => (
+                            {["Nosotros", "Servicios", "HUELLA", "Equipo", "Clientes", "Blog", "Contacto"].map((item) => (
                                 <a
                                     key={item}
                                     href={`#${item.toLowerCase()}`}
-                                    className="text-slate-900 text-lg font-medium"
+                                    className={`text-lg font-medium ${item === 'HUELLA' ? 'text-zolla-primary' : 'text-slate-900'}`}
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {item}
@@ -259,6 +260,14 @@ function Navbar() {
 function SectionLead({ title, text, claim, light = false }: { title: string, text?: string, claim?: string, light?: boolean }) {
     return (
         <div className="max-w-4xl mx-auto text-center mb-16 px-4">
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex justify-center mb-6"
+            >
+                <img src="/images/logo.png" alt="Zolla" className={`h-8 w-auto ${light ? "brightness-0 invert opacity-40" : "opacity-20"}`} />
+            </motion.div>
             <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -892,6 +901,9 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* --- HUELLA --- */}
+            <HuellaSection />
+
             {/* --- EQUIPO --- */}
             <section id="equipo" className="py-32 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
@@ -975,16 +987,23 @@ export default function Home() {
             </section>
 
             {/* --- FOOTER --- */}
-            <footer className="py-12 bg-white border-t border-zolla-border">
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="text-zolla-primary font-bold text-xl tracking-tighter">ZOLLA</div>
-                    <p className="text-slate-400 text-sm">© 2026 Zolla Coaching & Development. Todos los derechos reservados.</p>
-                    <button
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="p-3 bg-zolla-soft rounded-full hover:bg-slate-200 transition-colors"
-                    >
-                        <ChevronRight className="w-5 h-5 -rotate-90" />
-                    </button>
+            <footer className="py-16 bg-white border-t border-zolla-border">
+                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+                    <div className="flex flex-col items-center md:items-start gap-4">
+                        <img src="/images/logo.png" alt="ZOLLA Logo" className="h-10 w-auto" />
+                        <p className="text-slate-400 text-xs font-medium tracking-wide">© 2026 Zolla Coaching & Development. Todos los derechos reservados.</p>
+                    </div>
+                    <div className="flex items-center gap-8">
+                        <a href="https://www.linkedin.com/company/zolla-coaching-development/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-zolla-primary transition-colors">
+                            <Linkedin className="w-5 h-5" />
+                        </a>
+                        <button
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            className="p-4 bg-zolla-soft text-zolla-primary rounded-full hover:bg-zolla-primary hover:text-white transition-all shadow-sm"
+                        >
+                            <ChevronRight className="w-5 h-5 -rotate-90" />
+                        </button>
+                    </div>
                 </div>
             </footer>
 
@@ -1013,8 +1032,11 @@ export default function Home() {
                                     <X className="w-5 h-5" />
                                 </button>
 
-                                <div className="w-16 h-16 rounded-2xl bg-zolla-soft flex items-center justify-center text-zolla-primary mb-8">
-                                    {selectedService.icon}
+                                <div className="flex items-center justify-between mb-8">
+                                    <div className="w-16 h-16 rounded-2xl bg-zolla-soft flex items-center justify-center text-zolla-primary">
+                                        {selectedService.icon}
+                                    </div>
+                                    <img src="/images/logo.png" alt="Zolla" className="h-8 w-auto opacity-40" />
                                 </div>
 
                                 <span className="inline-block text-[10px] font-black tracking-[0.3em] text-zolla-primary uppercase mb-4">
