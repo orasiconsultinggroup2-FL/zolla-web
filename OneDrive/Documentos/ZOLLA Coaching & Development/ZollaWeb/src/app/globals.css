@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --zolla-red: #D92B14;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,7 +39,7 @@ body {
 /* Fix for bold text in articles */
 strong, b {
   font-weight: 800 !important;
-  color: #1a1a1a; /* Slate 900 equivalent */
+  color: #1a1a1a;
 }
 
 h3 strong, h2 strong, h1 strong {
@@ -45,5 +48,842 @@ h3 strong, h2 strong, h1 strong {
 
 .prose-zolla strong {
   color: #000;
-  display: inline-block; /* Helps some fonts render bold better */
+  display: inline-block;
+}
+
+/* --- HUELLA AUTONOMOUS SECTION STYLES --- */
+.huella-autonomous-section {
+  --red: #D92B14;
+  --bg: #FFFFFF;
+  --text: #1A1A1A;
+  --dark: #000000;
+  --black: #000000;
+  --gray: #F8FAFC;
+  --gray2: #64748B;
+  --gray3: #E2E8F0;
+  --white: #FFFFFF;
+  
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.huella-autonomous-section h1, 
+.huella-autonomous-section h2, 
+.huella-autonomous-section h3, 
+.huella-autonomous-section h4,
+.huella-autonomous-section .section-title {
+  font-family: var(--font-heading);
+}
+
+.brand-text {
+  color: var(--red) !important;
+  font-weight: 800;
+}
+
+/* HERO */
+.huella-autonomous-section .hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 8% 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.huella-autonomous-section .hero-left {
+  flex: 1;
+  max-width: 800px;
+  position: relative;
+  z-index: 2;
+}
+
+.huella-autonomous-section .hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .15em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.huella-autonomous-section .hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--red);
+}
+
+.huella-autonomous-section .hero-title {
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: .92;
+  color: var(--dark);
+  letter-spacing: .02em;
+  margin-bottom: 5rem;
+  text-transform: uppercase;
+}
+
+.huella-autonomous-section .hero-title span.brand-text {
+  color: var(--red);
+  display: block;
+  font-size: clamp(100px, 18vw, 240px);
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+  margin-top: 0.5rem;
+}
+
+.huella-autonomous-section .hero-sub {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: #334155;
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  border-left: 4px solid var(--red);
+  padding-left: 2rem;
+}
+
+.huella-autonomous-section .hero-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.huella-autonomous-section .pill {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  padding: 6px 14px;
+  border: 1px solid rgba(217, 43, 20, 0.4);
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+.huella-autonomous-section .hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.huella-autonomous-section .btn-primary {
+  background: var(--red);
+  color: var(--white) !important;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 14px 32px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: .02em;
+  transition: opacity .2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.huella-autonomous-section .btn-primary:hover {
+  opacity: .88;
+}
+
+.huella-autonomous-section .btn-secondary {
+  background: transparent;
+  color: var(--dark) !important;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 14px 32px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  letter-spacing: .02em;
+  transition: border-color .2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* SECTION BASE */
+.huella-autonomous-section section {
+  padding: 100px 8%;
+  background-color: var(--bg);
+}
+
+.huella-autonomous-section .section-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  color: var(--red);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.huella-autonomous-section .section-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 2px;
+  background: var(--red);
+}
+
+.huella-autonomous-section .section-title {
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1;
+  color: var(--dark);
+  margin-bottom: 1rem;
+  letter-spacing: .02em;
+  font-weight: 900;
+}
+
+.huella-autonomous-section .section-lead {
+  font-size: 18px;
+  color: #334155;
+  line-height: 1.7;
+  max-width: 720px;
+  margin-bottom: 4rem;
+}
+
+.huella-autonomous-section .section-ia-title {
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+  letter-spacing: .02em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* FILOSOFÍA */
+.huella-autonomous-section .filosofia {
+  background: var(--bg);
+}
+
+.huella-autonomous-section .filo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 3rem;
+  background: #E2E8F0;
+}
+
+.huella-autonomous-section .filo-card {
+  background: var(--dark);
+  padding: 4rem 3.5rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+.huella-autonomous-section .filo-card.red-card {
+  background: var(--red);
+}
+
+.huella-autonomous-section .filo-label {
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.huella-autonomous-section .filo-card.red-card .filo-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.huella-autonomous-section .filo-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #CBD5E1;
+}
+
+.huella-autonomous-section .filo-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  color: var(--white);
+  position: relative;
+  z-index: 2;
+}
+
+.huella-autonomous-section .filo-number {
+  position: absolute;
+  right: 1.5rem;
+  bottom: -20px;
+  font-family: var(--font-heading);
+  font-size: 200px;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 0.8;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ARQUETIPOS */
+.huella-autonomous-section .arq-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.huella-autonomous-section .arq-card {
+  background: var(--dark);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+  border-top: 1px solid rgba(217, 43, 20, 0.4);
+}
+
+.huella-autonomous-section .arq-card:hover {
+  background: #111111;
+}
+
+.huella-autonomous-section .arq-num {
+  font-family: var(--font-heading);
+  font-size: 56px;
+  color: rgba(217, 43, 20, 0.35);
+  line-height: 1;
+  margin-bottom: .5rem;
+  font-weight: 900;
+}
+
+.huella-autonomous-section .arq-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: .5rem;
+  text-transform: uppercase;
+}
+
+.huella-autonomous-section .arq-pattern {
+  font-size: 12px;
+  color: var(--red);
+  margin-bottom: .75rem;
+  font-weight: 600;
+}
+
+.huella-autonomous-section .arq-blind {
+  font-size: 13px;
+  color: #CBD5E1;
+  line-height: 1.6;
+  border-left: 2px solid var(--red);
+  padding-left: .75rem;
+}
+
+/* FASES */
+.huella-autonomous-section .fases-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 3rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--gray3);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.huella-autonomous-section .fases-flow::-webkit-scrollbar {
+  display: none;
+}
+
+.huella-autonomous-section .fase-step {
+  flex: 1;
+  min-width: 120px;
+  padding: 1rem 1.25rem;
+  border-top: 3px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.huella-autonomous-section .fase-step.active {
+  border-top-color: var(--red);
+  background: rgba(217, 43, 20, 0.05);
+}
+
+.huella-autonomous-section .fs-num {
+  font-size: 12px;
+  color: var(--red);
+  font-weight: 800;
+  margin-bottom: .5rem;
+}
+
+.huella-autonomous-section .fs-name {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  letter-spacing: .04em;
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.huella-autonomous-section .fs-sub {
+  font-size: 11px;
+  color: var(--gray2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-top: 4px;
+}
+
+/* FASES CONTENT */
+.huella-autonomous-section .fase-content.active {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.huella-autonomous-section .fase-tag {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--red);
+  margin-bottom: 1.5rem;
+}
+
+.huella-autonomous-section .fase-desc {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.huella-autonomous-section .fase-items {
+  list-style: none;
+  padding: 0;
+}
+
+.huella-autonomous-section .fase-items li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: #475569;
+  padding: 12px 0;
+  border-bottom: 1px solid #E2E8F0;
+  line-height: 1.6;
+}
+
+.huella-autonomous-section .fase-items li::before {
+  content: '→';
+  color: var(--red);
+  font-weight: bold;
+}
+
+.huella-autonomous-section .fase-ia {
+  background: #111;
+  padding: 1.5rem;
+  border-left: 2px solid var(--red);
+  margin-top: 2rem;
+}
+
+.huella-autonomous-section .fase-ia-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+}
+
+.huella-autonomous-section .fase-ia-text {
+  font-size: 14px;
+  color: #CBD5E1;
+  line-height: 1.6;
+}
+
+.huella-autonomous-section .fase-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.huella-autonomous-section .fase-micro {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1.5rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
+
+.huella-autonomous-section .fase-micro:hover {
+  background: rgba(217, 43, 20, 0.05);
+  border-left-color: var(--red);
+  transform: translateX(10px);
+}
+
+.huella-autonomous-section .fase-micro-num {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--red);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.huella-autonomous-section .fase-micro-text {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* IA SECTION ELEMENTS */
+.huella-autonomous-section .ia-section {
+  padding: 100px 8%;
+}
+
+.huella-autonomous-section .ia-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 3rem;
+  background: var(--red);
+}
+
+.huella-autonomous-section .ia-card {
+  background: var(--dark);
+  padding: 2.5rem;
+  border: 1px solid rgba(217, 43, 20, 0.2);
+}
+
+.huella-autonomous-section .ia-card-label {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--red);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+}
+
+.huella-autonomous-section .ia-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.huella-autonomous-section .ia-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.huella-autonomous-section .ia-item-text {
+  font-size: 15px;
+  color: #CBD5E1;
+  line-height: 1.6;
+}
+
+.huella-autonomous-section .ia-human {
+  background: var(--dark);
+  border: 2px solid var(--red);
+  padding: 3rem;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.huella-autonomous-section .ia-human-num {
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 5vw, 70px);
+  color: var(--red);
+  line-height: .9;
+  flex-shrink: 0;
+}
+
+.huella-autonomous-section .ia-human-text {
+  font-size: 15px;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* DIFERENCIAL TABLE */
+.huella-autonomous-section .diferencial {
+  padding: 100px 8%;
+}
+
+.huella-autonomous-section .compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.huella-autonomous-section .compare-table th {
+  padding: 1.5rem;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  border-bottom: 2px solid var(--dark);
+}
+
+.huella-autonomous-section .compare-table td {
+  padding: 1.5rem;
+  border-bottom: 1px solid #E2E8F0;
+  font-size: 15px;
+  color: #334155;
+}
+
+.huella-autonomous-section .compare-table td:last-child {
+  background: rgba(217, 43, 20, 0.05);
+  color: var(--red);
+  font-weight: 600;
+}
+
+/* ÍNDICE METRICS */
+.huella-autonomous-section .indice {
+  padding: 100px 8%;
+}
+
+.huella-autonomous-section .indice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(217, 43, 20, 0.15);
+  margin-top: 3rem;
+}
+
+.huella-autonomous-section .indice-card {
+  background: var(--dark);
+  padding: 2.5rem;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.huella-autonomous-section .indice-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.huella-autonomous-section .indice-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(217, 43, 20, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 20px;
+}
+
+.huella-autonomous-section .indice-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.huella-autonomous-section .indice-desc {
+  font-size: 0.95rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+}
+
+.huella-autonomous-section .indice-tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 2px 8px;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+}
+
+/* ADDITIONAL PILLS IN PHILOSOPHY */
+.huella-autonomous-section .pill-small {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  padding: 4px 10px;
+  border: 1px solid rgba(217, 43, 20, 0.3);
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+/* IA HUMAN BOX REDESIGN */
+.huella-autonomous-section .ia-human-box {
+  background: var(--dark);
+  border: 1px solid var(--red);
+  margin-top: 2px;
+  display: flex;
+  min-height: 200px;
+}
+
+.huella-autonomous-section .ia-human-left {
+  background: transparent;
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--red);
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.huella-autonomous-section .big-field {
+  font-family: var(--font-heading);
+  font-size: 42px;
+  color: var(--red);
+  line-height: 1;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.huella-autonomous-section .ia-human-right {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.huella-autonomous-section .ia-human-main {
+  font-size: 16px;
+  color: var(--white);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.huella-autonomous-section .ia-human-sub {
+  font-size: 14px;
+  color: #CBD5E1;
+  font-style: italic;
+}
+
+/* CTA FINAL REDESIGN */
+.huella-autonomous-section .cta-final {
+  padding: 100px 8%;
+  background: var(--dark);
+  border-top: 1px solid rgba(217, 43, 20, 0.2);
+}
+
+.huella-autonomous-section .cta-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.huella-autonomous-section .cta-title {
+  font-size: clamp(40px, 6vw, 70px);
+  line-height: 0.9;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.huella-autonomous-section .cta-text {
+  font-size: 16px;
+  color: var(--gray);
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.huella-autonomous-section .btn-cta {
+  background: var(--red);
+  color: var(--white) !important;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 24px 40px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  transition: opacity 0.2s;
+}
+
+.huella-autonomous-section .btn-cta:hover {
+  opacity: 0.9;
+}
+
+.huella-autonomous-section .cta-note {
+  font-size: 13px;
+  color: var(--gray2);
+  line-height: 1.5;
+}
+
+/* REVEAL ON SCROLL */
+.huella-autonomous-section .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.huella-autonomous-section .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE 1024px */
+@media (max-width: 1024px) {
+  .huella-autonomous-section .arq-grid,
+  .huella-autonomous-section .ia-grid,
+  .huella-autonomous-section .indice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* RESPONSIVE 768px — MÓVIL */
+@media (max-width: 768px) {
+  .huella-autonomous-section .hero { padding-top: 154px; text-align: center; justify-content: center; }
+  .huella-autonomous-section .hero-left { margin: 0 auto; }
+  .huella-autonomous-section .hero-sub { margin-left: auto; margin-right: auto; padding-left: 0; border-left: none; text-align: center; }
+  .huella-autonomous-section .hero-right { display: none; }
+  .huella-autonomous-section .cta-container,
+  .huella-autonomous-section .ia-human-box,
+  .huella-autonomous-section .filo-grid,
+  .huella-autonomous-section .fase-content.active,
+  .huella-autonomous-section .arq-grid,
+  .huella-autonomous-section .ia-grid,
+  .huella-autonomous-section .indice-grid {
+    grid-template-columns: 1fr;
+  }
+  .huella-autonomous-section .ia-human-box { flex-direction: column; }
+  .huella-autonomous-section .ia-human-left { width: 100%; border-right: none; border-bottom: 1px solid var(--red); }
+  .huella-autonomous-section .hero-ctas { justify-content: center; }
+  .huella-autonomous-section .cta-action { margin-top: 3rem; }
+
+  /* FIX: fases-flow en móvil — evita que las palabras se chaques */
+  .huella-autonomous-section .fases-flow {
+    padding-bottom: 0.5rem;
+  }
+  .huella-autonomous-section .fase-step {
+    min-width: 80px;
+    padding: 0.75rem 0.5rem;
+    flex: 0 0 auto;
+  }
+  .huella-autonomous-section .fs-name {
+    font-size: 13px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .huella-autonomous-section .fs-num {
+    font-size: 9px;
+    margin-bottom: 0.2rem;
+  }
+  .huella-autonomous-section .fs-sub {
+    font-size: 8px;
+    margin-top: 2px;
+  }
 }
