@@ -167,7 +167,7 @@ const CLIENTS: ClientCase[] = [
         name: "SANOFI",
         case: "Desarrollo de capacidades de servicio al cliente, atención de excelencia, comunicación estratégica y gestión de controversias de los aliados regionales de Sanofi en Lima, Arequipa, Trujillo, Piura y Chiclayo"
     },
-    { name: "OSITEL", case: "Formación y desarrollo de equipos. Consultoría en comunicación interna" },
+    { name: "OSIPTEL", case: "Formación y desarrollo de equipos. Consultoría en comunicación interna" },
     {
         name: "CFG-COPEINCA",
         case: "Gestión del cambio (fusión empresarial). Estrategia de comunicación interna. Formación de voceros"
@@ -455,7 +455,7 @@ function BlogSection() {
     const handleDelete = async (slug: string, e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         if (!window.confirm("¿Seguro que quieres eliminar este artículo permanentemente de la web?")) return;
 
         try {
@@ -506,7 +506,7 @@ function BlogSection() {
                                 />
                                 <div className="absolute top-4 right-4 z-10">
                                     {post.isDynamic && post.slug && (
-                                        <button 
+                                        <button
                                             onClick={(e) => handleDelete(post.slug, e)}
                                             className="p-2 bg-red-500/80 backdrop-blur-md text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 active:scale-95"
                                             title="Eliminar de la Web"
@@ -581,222 +581,6 @@ export default function Home() {
             />
             <Navbar />
 
-            {/* --- CHATBOX --- */}
-            <div className="fixed bottom-8 right-8 z-[150] flex flex-col items-end">
-                <AnimatePresence>
-                    {isChatOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: "bottom right" }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                            className="mb-6 w-[350px] md:w-[400px] bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden flex flex-col"
-                        >
-                            {/* Chat Header */}
-                            <div className="bg-zolla-dark p-6 text-white flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-zolla-primary/20 flex items-center justify-center text-zolla-primary">
-                                        <Zap className="w-5 h-5 fill-current" />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-black uppercase tracking-widest">ZOLLA Assistant</div>
-                                        <div className="text-[10px] text-white/40 font-bold uppercase tracking-[0.2em] flex items-center gap-1.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                            En línea ahora
-                                        </div>
-                                    </div>
-                                </div>
-                                <button
-                                    onClick={() => {
-                                        setIsChatOpen(false);
-                                        setTimeout(() => setChatStep("menu"), 500);
-                                    }}
-                                    className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
-                            </div>
-
-                            {/* Chat Content */}
-                            <div className="p-8 h-[400px] overflow-y-auto bg-slate-50/50">
-                                <AnimatePresence mode="wait">
-                                    {chatStep === "menu" ? (
-                                        <motion.div
-                                            key="menu"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: 20 }}
-                                            className="space-y-6"
-                                        >
-                                            <div className="flex gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-zolla-soft flex items-center justify-center text-zolla-primary shrink-0">
-                                                    <MessageSquare className="w-4 h-4" />
-                                                </div>
-                                                <div className="space-y-4">
-                                                    <div className="p-4 bg-white rounded-2xl rounded-tl-none shadow-sm text-sm text-slate-600 leading-relaxed border border-slate-100">
-                                                        ¡Hola! Bienvenidos a <strong>ZOLLA</strong>. ¿Cómo podemos ayudarte hoy?
-                                                    </div>
-                                                    <div className="p-4 bg-white rounded-2xl rounded-tl-none shadow-sm text-sm text-slate-600 leading-relaxed border border-slate-100">
-                                                        Soy tu asistente virtual, puedo darte recomendaciones sobre nuestros servicios o ponerte en contacto directo con nuestro equipo.
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="space-y-3 pt-4">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 text-center mb-4">Selecciona una opción</p>
-                                                <button
-                                                    onClick={() => setChatStep("form")}
-                                                    className="w-full p-4 bg-white border border-slate-200 rounded-2xl text-left hover:border-zolla-primary hover:bg-zolla-soft/30 transition-all group flex items-center justify-between shadow-sm"
-                                                >
-                                                    <span className="text-sm font-bold text-slate-700">Contactar con un experto</span>
-                                                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-zolla-primary group-hover:translate-x-1 transition-all" />
-                                                </button>
-                                                <button
-                                                    onClick={() => {
-                                                        setIsChatOpen(false);
-                                                        window.location.href = "#servicios";
-                                                    }}
-                                                    className="w-full p-4 bg-white border border-slate-200 rounded-2xl text-left hover:border-zolla-primary hover:bg-zolla-soft/30 transition-all group flex items-center justify-between shadow-sm"
-                                                >
-                                                    <span className="text-sm font-bold text-slate-700">Recomendación de servicios</span>
-                                                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-zolla-primary group-hover:translate-x-1 transition-all" />
-                                                </button>
-                                                <button
-                                                    onClick={() => {
-                                                        setIsChatOpen(false);
-                                                        window.location.href = "#blog";
-                                                    }}
-                                                    className="w-full p-4 bg-white border border-slate-200 rounded-2xl text-left hover:border-zolla-primary hover:bg-zolla-soft/30 transition-all group flex items-center justify-between shadow-sm"
-                                                >
-                                                    <span className="text-sm font-bold text-slate-700">Explorar nuestro pensamiento</span>
-                                                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-zolla-primary group-hover:translate-x-1 transition-all" />
-                                                </button>
-                                            </div>
-                                        </motion.div>
-                                    ) : chatStep === "form" ? (
-                                        <motion.div
-                                            key="form"
-                                            initial={{ opacity: 0, x: 20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: -20 }}
-                                            className="space-y-6"
-                                        >
-                                            <button
-                                                onClick={() => setChatStep("menu")}
-                                                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-zolla-primary transition-colors mb-4"
-                                            >
-                                                <ChevronRight className="w-3 h-3 rotate-180" />
-                                                Volver al menú
-                                            </button>
-
-                                            <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
-                                                <h4 className="text-sm font-bold text-slate-900">Cuéntanos tu necesidad</h4>
-                                                <form onSubmit={handleFormSubmit} className="space-y-4">
-                                                    <div>
-                                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1.5 block">Nombre Completo</label>
-                                                        <input
-                                                            required
-                                                            type="text"
-                                                            placeholder="Ej. Juan Pérez"
-                                                            value={formData.name}
-                                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                            className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-zolla-primary/30 transition-colors"
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1.5 block">Correo Corporativo</label>
-                                                        <input
-                                                            required
-                                                            type="email"
-                                                            placeholder="juan@empresa.com"
-                                                            value={formData.email}
-                                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                            className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-zolla-primary/30 transition-colors"
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1.5 block">Mensaje</label>
-                                                        <textarea
-                                                            required
-                                                            rows={3}
-                                                            placeholder="¿En qué podemos ayudarte?"
-                                                            value={formData.message}
-                                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                            className="w-full p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-zolla-primary/30 transition-colors resize-none"
-                                                        />
-                                                    </div>
-                                                    <button
-                                                        disabled={isSubmitting}
-                                                        type="submit"
-                                                        className="w-full py-4 bg-zolla-primary text-white font-bold rounded-xl hover:bg-red-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                                                    >
-                                                        {isSubmitting ? (
-                                                            <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                        ) : (
-                                                            <>
-                                                                Enviar Mensaje
-                                                                <ArrowUpRight className="w-4 h-4" />
-                                                            </>
-                                                        )}
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </motion.div>
-                                    ) : (
-                                        <motion.div
-                                            key="success"
-                                            initial={{ opacity: 0, scale: 0.9 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            className="h-full flex flex-col items-center justify-center text-center space-y-6"
-                                        >
-                                            <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center scale-110">
-                                                <Zap className="w-10 h-10 fill-current" />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <h4 className="text-xl font-bold text-slate-900">¡Mensaje Recibido!</h4>
-                                                <p className="text-sm text-slate-500 leading-relaxed">
-                                                    Gracias <strong>{formData.name || "por escribirnos"}</strong>. <br />
-                                                    Un experto de nuestro equipo se pondrá en contacto contigo muy pronto.
-                                                </p>
-                                            </div>
-                                            <button
-                                                onClick={() => setChatStep("menu")}
-                                                className="px-8 py-3 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-zolla-primary transition-colors"
-                                            >
-                                                Cerrar Chat
-                                            </button>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            {/* Chat Footer */}
-                            <div className="p-4 bg-white border-t border-slate-100 flex items-center gap-3">
-                                <div className="flex-grow p-3 bg-slate-50 rounded-xl text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center italic">
-                                    Asistente de Estrategia Zolla
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                <motion.button
-                    onClick={() => setIsChatOpen(!isChatOpen)}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`p-5 rounded-full shadow-2xl transition-all duration-500 flex items-center gap-3 group relative ${isChatOpen ? "bg-zolla-dark text-white rotate-90" : "bg-zolla-primary text-white"}`}
-                >
-                    {isChatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
-
-                    {!isChatOpen && (
-                        <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-4 py-2 bg-white text-slate-900 text-[10px] font-black uppercase tracking-widest rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-100 pointer-events-none">
-                            ¿Hablamos?
-                        </span>
-                    )}
-                </motion.button>
-            </div>
-
             {/* --- HERO SECTION --- */}
             <section id="inicio" className="relative h-screen min-h-[700px] flex items-center justify-center bg-zolla-dark bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80')] bg-cover bg-center">
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
@@ -818,10 +602,13 @@ export default function Home() {
                             Liderazgo fuerte . Cambio real . Acuerdos que duran
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                            <a href="#contacto" className="w-full sm:w-auto px-10 py-4 bg-zolla-primary text-white font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2 group">
-                                Agenda un Diagnóstico
+                            <button
+                                onClick={() => window.dispatchEvent(new CustomEvent('zolla:openChat'))}
+                                className="w-full sm:w-auto px-10 py-4 bg-zolla-primary text-white font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2 group"
+                            >
+                                Solicitar diagnóstico gratuito
                                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </a>
+                            </button>
                             <a href="#servicios" className="w-full sm:w-auto px-10 py-4 bg-white/5 border border-white/20 text-white font-bold backdrop-blur-md hover:bg-white/10 transition-colors flex items-center justify-center">
                                 Nuestros Servicios
                             </a>
