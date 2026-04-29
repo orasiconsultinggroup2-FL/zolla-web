@@ -287,6 +287,12 @@ h3 strong, h2 strong, h1 strong {
   background: var(--red);
 }
 
+.huella-autonomous-section .filo-card.red-card .brand-text {
+  color: var(--dark) !important;
+  font-style: italic;
+  font-weight: 800;
+}
+
 .huella-autonomous-section .filo-label {
   font-size: 11px;
   letter-spacing: .15em;

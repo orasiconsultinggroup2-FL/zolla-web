@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, EB_Garamond } from "next/font/google";
 import "./globals.css";
+import ZollaChatSystem from "@/components/ZollaChatSystem";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
         <html lang="es">
             <body className={`${inter.variable} ${ebGaramond.variable} font-sans antialiased`}>
                 {children}
+                <ZollaChatSystem />
             </body>
         </html>
     );

@@ -201,7 +201,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             {/* Content Section */}
             <section className="py-20">
                 <div className="max-w-4xl mx-auto px-6">
-                    <div className="aspect-[21/9] rounded-3xl overflow-hidden mb-16 shadow-2xl">
+                    <div className="aspect-[16/9] rounded-3xl overflow-hidden mb-16 shadow-2xl">
                         <img
                             src={post.image || post.selectedImage}
                             alt={post.title}
@@ -209,68 +209,69 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                         />
                     </div>
 
-                    <div className="grid md:grid-cols-[1fr_250px] gap-12">
-                        <div className="prose prose-lg prose-slate max-w-none">
-                            <p 
-                                className="text-xl text-slate-700 leading-relaxed font-serif italic mb-12 border-l-4 border-zolla-primary pl-8 py-4 bg-zolla-soft/50 rounded-r-2xl"
-                                dangerouslySetInnerHTML={{
-                                    __html: (post.excerpt || post.content?.substring(0, 200) + "...")
-                                        .replace(/\*\*\s*(.*?)\s*\*\*/g, '<strong>$1</strong>')
-                                        .replace(/__\s*(.*?)\s*__/g, '<strong>$1</strong>')
-                                        .replace(/\*\s*(.*?)\s*\*/g, '<em>$1</em>')
-                                        .replace(/_\s*(.*?)\s*_/g, '<em>$1</em>')
-                                        .replace(/\n/g, '<br />')
-                                }}
-                            />
-
-                            {post.content ? (
-                                <div
-                                    className="space-y-6 text-slate-800 leading-relaxed whitespace-pre-wrap selection:bg-zolla-primary/10 prose-zolla"
+                        <div className="grid md:grid-cols-[1fr_250px] gap-12">
+                            {/* Main Column */}
+                            <div className="min-w-0">
+                                <div 
+                                    className="text-xl text-slate-700 leading-relaxed font-serif italic mb-12 border-l-4 border-zolla-primary pl-8 py-4 bg-zolla-soft/50 rounded-r-2xl"
                                     dangerouslySetInnerHTML={{
-                                        __html: post.content
-                                            // Paso 1: Headers
-                                            .replace(/### (.*?)\n/g, '<h3 class="text-2xl font-black text-slate-900 pt-8 mb-4 uppercase tracking-tight">$1</h3>')
-                                            .replace(/## (.*?)\n/g, '<h2 class="text-3xl font-black text-slate-900 pt-10 mb-6 uppercase tracking-tighter">$1</h2>')
-                                            
-                                            // Paso 2: Bolding y Negritas (Aseguramos que coincida incluso con espacios o símbolos extra)
-                                            .replace(/\*\*\s*(.*?)\s*\*\*/g, '<strong>$1</strong>')
-                                            .replace(/__\s*(.*?)\s*__/g, '<strong>$1</strong>')
-                                            
-                                            // Paso 3: Itálicas
-                                            .replace(/\*\s*(.*?)\s*\*/g, '<em>$1</em>')
-                                            .replace(/_\s*(.*?)\s*_/g, '<em>$1</em>')
-                                            
-                                            // Paso 4: Listas
-                                            .replace(/^\s*[-*•]\s+(.*?)$/gm, '<li class="ml-6 mb-2 list-disc font-medium">$1</li>')
-                                            .replace(/^\s*\d\.\s+(.*?)$/gm, '<li class="ml-6 mb-2 list-decimal font-medium">$1</li>')
-                                            
-                                            // Paso 5: Separadores y Líneas base
-                                            .replace(/---/g, '<hr class="my-12 border-slate-100" />')
-                                            .replace(/\n\n/g, '<br /><br />')
-                                            .replace(/\n/g, '<br />')
+                                        __html: (post.excerpt || (post.content ? post.content.split('\n')[0] : "Cargando contenido..."))
+                                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                            .replace(/__(.*?)__/g, '<strong>$1</strong>')
+                                            .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+                                            .replace(/_(.*?)_/g, '<em class="italic">$1</em>')
                                     }}
                                 />
-                            ) : (
-                                <div className="space-y-6 text-slate-800 leading-relaxed">
-                                    <p>
-                                        En este artículo exploramos profundamente los desafíos y oportunidades que presenta {post.title.toLowerCase()}.
-                                        Como especialistas en coaching y desarrollo organizacional, entendemos que la teoría solo cobra sentido cuando se aplica en el terreno.
-                                    </p>
-                                    <p>
-                                        Este artículo forma parte de nuestra línea editorial de alto impacto para la gestión de cambio y liderazgo estratégico.
-                                    </p>
-                                    <h3 className="text-2xl font-bold text-slate-900 pt-8">Puntos Clave:</h3>
-                                    <ul className="list-disc pl-6 space-y-3">
-                                        <li>Análisis del contexto y tendencias.</li>
-                                        <li>Herramientas prácticas para líderes.</li>
-                                        <li>Lecciones aprendidas en el terreno.</li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
 
-                        {renderSidebar()}
-                    </div>
+                                {post.content ? (
+                                    <div
+                                        className="text-slate-800 leading-relaxed selection:bg-zolla-primary/10 prose-zolla"
+                                        dangerouslySetInnerHTML={{
+                                            __html: post.content
+                                                .replace(/\r\n/g, '\n')
+                                                .replace(/^### (.*?)$/gm, '<h3 class="text-2xl font-black text-slate-900 pt-8 mb-4 uppercase tracking-tight">$1</h3>')
+                                                .replace(/^## (.*?)$/gm, '<h2 class="text-3xl font-black text-slate-900 pt-10 mb-6 uppercase tracking-tighter">$1</h2>')
+                                                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                                .replace(/__(.*?)__/g, '<strong>$1</strong>')
+                                                .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+                                                .replace(/_(.*?)_/g, '<em class="italic">$1</em>')
+                                                .replace(/^\s*[-*•]\s+(.*?)$/gm, '<li class="ml-6 mb-2 list-disc font-medium">$1</li>')
+                                                .replace(/^\s*\d\.\s+(.*?)$/gm, '<li class="ml-6 mb-2 list-decimal font-medium">$1</li>')
+                                                .replace(/---/g, '<hr class="my-12 border-slate-100" />')
+                                                .split('\n\n')
+                                                .map((p: string) => {
+                                                    const trimmed = p.trim();
+                                                    if (!trimmed) return '';
+                                                    if (trimmed.startsWith('<h') || trimmed.startsWith('<li') || trimmed.startsWith('<hr')) return trimmed;
+                                                    return `<p class="mb-6">${trimmed.replace(/\n/g, '<br />')}</p>`;
+                                                })
+                                                .join('')
+                                        }}
+                                    />
+                                ) : (
+                                    <div className="space-y-6 text-slate-800 leading-relaxed">
+                                        <p>
+                                            En este artículo exploramos profundamente los desafíos y oportunidades que presenta {post.theme?.toLowerCase()}. 
+                                            Como especialistas en coaching y desarrollo organizacional, entendemos que la teoría solo cobra sentido cuando se aplica en el terreno.
+                                        </p>
+                                        <p>
+                                            Este artículo forma parte de nuestra línea editorial de alto impacto para la gestión de cambio y liderazgo estratégico.
+                                        </p>
+                                        <h3 className="text-2xl font-bold text-slate-900 pt-8">Puntos Clave:</h3>
+                                        <ul className="list-disc pl-6 space-y-3">
+                                            <li>Análisis del contexto y tendencias.</li>
+                                            <li>Herramientas prácticas para líderes.</li>
+                                            <li>Lecciones aprendidas en el terreno.</li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Sidebar Column */}
+                            <div className="relative">
+                                {renderSidebar()}
+                            </div>
+                        </div>
                 </div>
             </section>
 

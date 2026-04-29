@@ -19,7 +19,7 @@ import {
 
 import { BLOG_POSTS } from "@/data/blogPosts";
 import HuellaSection from "@/components/HuellaSection";
-
+import CountersSection from "@/components/CountersSection";
 // --- TYPES ---
 interface Service {
     title: string;
@@ -85,7 +85,7 @@ const TEAM: TeamMember[] = [
     {
         name: "Juan Ramón Zolla",
         role: "Business Partner",
-        bio: "Media trainer, coach ejecutivo. Especialista en comunicación y cambio organizacional",
+        bio: "Consultor en desarrollo de capital humano. 30 años transformando líderes en sectores de alto riesgo operativo",
         image: "/images/equipo_v2/juan_zolla.png"
     },
     {
@@ -135,13 +135,12 @@ const FIELDWORK: FieldworkImage[] = [
     { image: "/images/impacto_v3/tasa_2.jpg", caption: "Entrenamiento avanzado para mandos corporativos." },
     { image: "/images/impacto_v3/taller_exitoso.jpg", caption: "Programas de formación en atención de excelencia." },
     { image: "/images/impacto_v3/capacitacion_equipo.jpg", caption: "Desarrollo de habilidades para equipos de alto desempeño." },
-    { image: "/images/impacto_v3/taller_liderazgo_1.jpg", caption: "Estrategias de comunicación y liderazgo efectivo." },
-    { image: "/images/impacto_v3/taller_liderazgo_2.jpg", caption: "Simulaciones y entrenamiento en situaciones reales." },
-    { image: "/images/impacto_v3/taller_liderazgo_3.jpg", caption: "Talleres de formación continua para la alta gerencia." },
-    { image: "/images/impacto_v3/taller_liderazgo_4.jpg", caption: "Dinámicas de equipo enfocadas en resultados sostenibles." },
-    { image: "/images/impacto_v3/taller_liderazgo_5.jpg", caption: "Gestión de cambio organizacional y cultura participativa." },
-    { image: "/images/impacto_v3/taller_liderazgo_6.jpg", caption: "Sesiones intensivas de retroalimentación corporativa." },
-    { image: "/images/impacto_v3/taller_4.jpg", caption: "Entrenamiento dinámico para equipos integrales." },
+{ image: "/images/impacto_v3/taller_liderazgo_2.jpg", caption: "Entrenamiento de voceros." },
+{ image: "/images/impacto_v3/taller_liderazgo_3.jpg", caption: "Talleres de formación de líderes en entornos industriales." },
+{ image: "/images/impacto_v3/taller_liderazgo_4.jpg", caption: "Facilitación de diálogos multiactor." },
+{ image: "/images/impacto_v3/taller_liderazgo_5.jpg", caption: "Sesiones de co-creación para procesos de cambio cultural." },
+{ image: "/images/impacto_v3/taller_liderazgo_6.jpg", caption: "Entrenamiento de voceros." },
+{ image: "/images/impacto_v3/taller_4.jpg", caption: "Seminarios de formación ejecutiva." },
     { image: "/images/impacto_v3/taller_9.jpg", caption: "Simulaciones de alta exigencia estratégica." },
     { image: "/images/impacto_v3/taller_16.jpg", caption: "Talleres de liderazgo y construcción de visión compartida." },
     { image: "/images/impacto_v3/taller_17.jpg", caption: "Alineamiento y cohesión en entornos corporativos." }
@@ -480,6 +479,26 @@ function BlogSection() {
 
     const allPosts = [...dynamicPosts, ...BLOG_POSTS];
 
+    // Filtrar: solo mostrar artículos del mes vigente (mes del último artículo publicado)
+    const getMonthKey = (dateStr: string) => {
+        if (!dateStr) return '';
+        const d = new Date(dateStr);
+        if (!isNaN(d.getTime())) {
+            return `${d.getFullYear()}-${String(d.getMonth()).padStart(2, '0')}`;
+        }
+        const months: Record<string, number> = { enero:0, febrero:1, marzo:2, abril:3, mayo:4, junio:5, julio:6, agosto:7, septiembre:8, octubre:9, noviembre:10, diciembre:11 };
+        const match = dateStr.match(/(\d+)\s+de\s+(\w+)\s+de\s+(\d+)/);
+        if (match) return `${match[3]}-${String(months[match[2].toLowerCase()] ?? 0).padStart(2, '0')}`;
+        return '';
+    };
+
+    const latestMonth = allPosts.reduce((latest, post) => {
+        const key = getMonthKey(post.date);
+        return key > latest ? key : latest;
+    }, '');
+
+    const filteredPosts = latestMonth ? allPosts.filter(post => getMonthKey(post.date) === latestMonth) : allPosts;
+
     return (
         <section id="blog" className="py-32 bg-zolla-soft">
             <div className="max-w-7xl mx-auto px-6">
@@ -489,7 +508,7 @@ function BlogSection() {
                 />
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-                    {allPosts.map((post, i) => (
+                    {filteredPosts.map((post, i) => (
                         <motion.article
                             key={i}
                             initial={{ opacity: 0, y: 20 }}
@@ -741,7 +760,7 @@ export default function Home() {
                     <FieldworkCarousel />
                 </div>
             </section>
-
+            <CountersSection />
             {/* --- CLIENTES --- */}
             <section id="clientes" className="py-32 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
