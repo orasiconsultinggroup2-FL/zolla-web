@@ -135,6 +135,7 @@ const FIELDWORK: FieldworkImage[] = [
     { image: "/images/impacto_v3/tasa_2.jpg", caption: "Entrenamiento avanzado para mandos corporativos." },
     { image: "/images/impacto_v3/taller_exitoso.jpg", caption: "Programas de formación en atención de excelencia." },
     { image: "/images/impacto_v3/capacitacion_equipo.jpg", caption: "Desarrollo de habilidades para equipos de alto desempeño." },
+    { image: "/images/impacto_v3/taller_liderazgo_1.jpg", caption: "Trabajo colaborativo en entornos industriales." },
 { image: "/images/impacto_v3/taller_liderazgo_2.jpg", caption: "Entrenamiento de voceros." },
 { image: "/images/impacto_v3/taller_liderazgo_3.jpg", caption: "Talleres de formación de líderes en entornos industriales." },
 { image: "/images/impacto_v3/taller_liderazgo_4.jpg", caption: "Facilitación de diálogos multiactor." },
